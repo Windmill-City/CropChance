@@ -28,7 +28,7 @@ public class DumpCropCard extends SubCommand {
             try {
                 page = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                c.text(ChatFormatting.RESET, "/crop dump_cropcard <page>");
+                c.text(ChatFormatting.RESET, "/crop dump_cropcard <page>").commit();
                 return;
             }
         }
