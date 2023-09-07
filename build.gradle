@@ -723,38 +723,38 @@ tasks.register('generateAssets') {
     }
 }
 
-if (usesMixins.toBoolean()) {
-    tasks.named("processResources").configure {
-        dependsOn("generateAssets")
-    }
-
-    tasks.named("compileJava", JavaCompile).configure {
-        options.compilerArgs += [
-            // Elan: from what I understand they are just some linter configs so you get some warning on how to properly code
-            "-XDenableSunApiLintControl",
-            "-XDignore.symbol.file"
-        ]
-    }
-}
-
-tasks.named("processResources", ProcessResources).configure {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.mcVersion
-    exclude("spotless.gradle")
-
-    // replace stuff in mcmod.info, nothing else. replaces ${key} with value in text
-    filesMatching("mcmod.info")  {
-        expand "minecraftVersion": project.minecraft.mcVersion,
-            "modVersion": modVersion,
-            "modId": modId,
-            "modName": modName
-    }
-
-    if (usesMixins.toBoolean()) {
-        dependsOn("compileJava", "compileScala")
-    }
-}
+//if (usesMixins.toBoolean()) {
+//    tasks.named("processResources").configure {
+//        dependsOn("generateAssets")
+//    }
+//
+//    tasks.named("compileJava", JavaCompile).configure {
+//        options.compilerArgs += [
+//            // Elan: from what I understand they are just some linter configs so you get some warning on how to properly code
+//            "-XDenableSunApiLintControl",
+//            "-XDignore.symbol.file"
+//        ]
+//    }
+//}
+//
+//tasks.named("processResources", ProcessResources).configure {
+//    // this will ensure that this task is redone when the versions change.
+//    inputs.property "version", project.version
+//    inputs.property "mcversion", project.minecraft.mcVersion
+//    exclude("spotless.gradle")
+//
+//    // replace stuff in mcmod.info, nothing else. replaces ${key} with value in text
+//    filesMatching("mcmod.info")  {
+//        expand "minecraftVersion": project.minecraft.mcVersion,
+//            "modVersion": modVersion,
+//            "modId": modId,
+//            "modName": modName
+//    }
+//
+//    if (usesMixins.toBoolean()) {
+//        dependsOn("compileJava", "compileScala")
+//    }
+//}
 
 ext.java17Toolchain = (JavaToolchainSpec spec) -> {
     spec.languageVersion.set(JavaLanguageVersion.of(17))

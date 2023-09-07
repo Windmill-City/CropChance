@@ -2,6 +2,7 @@ package city.windmill.cropchance;
 
 import city.windmill.cropchance.command.BasicCommand;
 import city.windmill.cropchance.command.DumpCropCard;
+import city.windmill.cropchance.command.EvalChanceCommand;
 import city.windmill.cropchance.command.InfoCommand;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -36,6 +37,7 @@ public class CommonProxy {
 
         basic.register(new InfoCommand());
         basic.register(new DumpCropCard());
+        basic.register(new EvalChanceCommand());
 
         event.registerServerCommand(basic);
     }

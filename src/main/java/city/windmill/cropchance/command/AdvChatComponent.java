@@ -80,6 +80,8 @@ public class AdvChatComponent {
         int lenTitle = title.length();
         int padding = TitleLength - lenTitle;
 
+        // Insert padding
+        commit();
         text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.AQUA, title);
         text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
