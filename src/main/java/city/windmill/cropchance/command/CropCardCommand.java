@@ -12,10 +12,10 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.crops.CropCard;
 import ic2.core.crop.IC2Crops;
 
-public class DumpCropCard extends SubCommand {
+public class CropCardCommand extends SubCommand {
 
-    public DumpCropCard() {
-        super("dump_cropcard");
+    public CropCardCommand() {
+        super("cropcard");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DumpCropCard extends SubCommand {
             try {
                 page = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                c.text(ChatFormatting.RESET, "/crop dump_cropcard <page>").commit();
+                c.text(ChatFormatting.RESET, "/crop cropcard <page>").commit();
                 return;
             }
         }
@@ -36,9 +36,15 @@ public class DumpCropCard extends SubCommand {
         int size = IC2Crops.instance.getCrops().size();
         page = MathHelper.clamp_int(page, 1, size);
 
-        c.beginPage("CropCard", "/crop dump_cropcard %d", page, page - 1, page + 1, size);
+        c.beginPage("CropCard", "/crop cropcard %d", page, page - 1, page + 1, size);
 
         CropCard crop = IC2Crops.instance.getCrops().stream().collect(Collectors.toList()).get(page - 1);
+        formatCropCard(crop, c);
+
+        c.endPage("/crop cropcard %d", page, page - 1, page + 1, size);
+    }
+
+    public static void formatCropCard(CropCard crop, AdvChatComponent c) {
         String name = I18n.format(crop.displayName());
         // Crop Name
         c.attr("Name", name);
@@ -48,14 +54,12 @@ public class DumpCropCard extends SubCommand {
 
         // Mod Name
         c.attrSameLine("Owner", crop.owner())
-                .attr("Name",
-                        FMLCommonHandler.instance().findContainerFor(crop.owner()).getName());
+            .attr("Name",
+                FMLCommonHandler.instance().findContainerFor(crop.owner()).getName());
 
         // Attributes
         String attrs = String.join(", ", crop.attributes());
         c.attr("Attr", attrs);
-
-        c.endPage("/crop dump_cropcard %d", page, page - 1, page + 1, size);
     }
 
 }
