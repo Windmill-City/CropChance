@@ -20,11 +20,11 @@ public class DummyWorld extends World {
 
     public DummyWorld() {
         super(
-                null,
-                "Dummy",
-                new DummyWorldProvider(),
-                new WorldSettings(new WorldInfo(new NBTTagCompound())),
-                new Profiler());
+            null,
+            "Dummy",
+            new DummyWorldProvider(),
+            new WorldSettings(new WorldInfo(new NBTTagCompound())),
+            new Profiler());
     }
 
     /**

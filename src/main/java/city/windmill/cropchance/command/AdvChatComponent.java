@@ -1,6 +1,6 @@
 package city.windmill.cropchance.command;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
+import java.util.Collections;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
@@ -8,6 +8,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 @SuppressWarnings("unused")
 public class AdvChatComponent {
@@ -21,12 +23,16 @@ public class AdvChatComponent {
         this.Sender = sender;
     }
 
+    static private String repeat(String toRepeat, int count) {
+        return String.join("", Collections.nCopies(count, toRepeat));
+    }
+
     static private IChatComponent ComponentCommand(String name, EnumChatFormatting color, String cmd, Object... args) {
         IChatComponent c = new ChatComponentText(name);
-        c.setChatStyle(new ChatStyle()
-            .setColor(color)
-            .setUnderlined(true)
-            .setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format(cmd, args))));
+        c.setChatStyle(
+            new ChatStyle().setColor(color)
+                .setUnderlined(true)
+                .setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format(cmd, args))));
         return c;
     }
 
@@ -46,27 +52,27 @@ public class AdvChatComponent {
 
         // Insert padding
         commit();
-        text(ChatFormatting.GOLD, "-".repeat(padding / 2) + " ");
+        text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.AQUA, title);
         text(ChatFormatting.RESET, String.format(" Page: %d/%d (", cur, max));
         Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, prev));
         text(ChatFormatting.RESET, "/");
         Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, next));
         text(ChatFormatting.RESET, ")");
-        text(ChatFormatting.GOLD, " " + "-".repeat(padding / 2));
+        text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
         commit();
     }
 
     public void endPage(String cmd, int cur, int prev, int next, int max) {
         int padding = TitleLength - 17;
 
-        text(ChatFormatting.GOLD, "-".repeat(padding / 2) + " ");
+        text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.RESET, String.format("Page: %d/%d (", cur, max));
         Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, prev));
         text(ChatFormatting.RESET, "/");
         Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, next));
         text(ChatFormatting.RESET, ")");
-        text(ChatFormatting.GOLD, "-".repeat(padding / 2) + " ");
+        text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
         commit();
     }
 
@@ -76,14 +82,14 @@ public class AdvChatComponent {
 
         // Insert padding
         commit();
-        text(ChatFormatting.GOLD, "-".repeat(padding / 2) + " ");
+        text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.AQUA, title);
-        text(ChatFormatting.GOLD, "-".repeat(padding / 2) + " ");
+        text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
         commit();
     }
 
     public void endAttr() {
-        text(ChatFormatting.GOLD, "-".repeat(TitleLength) + " ");
+        text(ChatFormatting.GOLD, repeat("-", TitleLength) + " ");
         commit();
     }
 

@@ -1,5 +1,11 @@
 package city.windmill.cropchance.command;
 
+import net.minecraft.block.Block;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.world.World;
+
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import city.windmill.cropchance.DummyWorld;
@@ -8,13 +14,9 @@ import ic2.api.crops.Crops;
 import ic2.api.item.IC2Items;
 import ic2.core.crop.IC2Crops;
 import ic2.core.crop.TileEntityCrop;
-import net.minecraft.block.Block;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.world.World;
 
 public class CrossCommand extends SubCommand {
+
     public CrossCommand() {
         super("cross");
     }
@@ -31,17 +33,22 @@ public class CrossCommand extends SubCommand {
 
                 new CrossTry(IC2Crops.cropReed, growth, surround, tryCross).runCross(sender);
             } catch (Exception e) {
-                c.text(ChatFormatting.RESET, e.getClass().getTypeName() + e.getMessage()).commit();
+                c.text(
+                    ChatFormatting.RESET,
+                    e.getClass()
+                        .getTypeName() + e.getMessage())
+                    .commit();
             }
-        } else
-            printHelp(c);
+        } else printHelp(c);
     }
 
     public static void printHelp(AdvChatComponent c) {
-        c.text(ChatFormatting.RESET, "/crop cross <try> <growth> <surround>").commit();
+        c.text(ChatFormatting.RESET, "/crop cross <try> <growth> <surround>")
+            .commit();
     }
 
     public static class CrossTry {
+
         CropCard Parent;
         int Growth;
         int Surround;
@@ -60,12 +67,16 @@ public class CrossCommand extends SubCommand {
         public TileEntityCrop buildTryEnv() {
             DummyWorld world = new DummyWorld();
 
-            return switch (Surround) {
-                case 2 -> placeCropPair(world, 0, 0, 0);
-                case 3 -> placeCropTri(world, 0, 0, 0);
-                case 4 -> placeCropQuad(world, 0, 0, 0);
-                default -> throw new IllegalArgumentException("Surround valid values are: 2, 3, 4.");
-            };
+            switch (Surround) {
+                case 2:
+                    return placeCropPair(world, 0, 0, 0);
+                case 3:
+                    return placeCropTri(world, 0, 0, 0);
+                case 4:
+                    return placeCropQuad(world, 0, 0, 0);
+                default:
+                    throw new IllegalArgumentException("Surround valid values are: 2, 3, 4.");
+            }
         }
 
         public void runCross(ICommandSender sender) {
@@ -84,17 +95,17 @@ public class CrossCommand extends SubCommand {
 
                     formatResult(sender);
                 } catch (Exception e) {
-                    new AdvChatComponent(sender).text(ChatFormatting.RESET, e.getMessage()).commit();
+                    new AdvChatComponent(sender).text(ChatFormatting.RESET, e.getMessage())
+                        .commit();
                 }
             });
-            //Make IC2's isSimulating return true
+            // Make IC2's isSimulating return true
             t.setName("Server thread");
             t.setDaemon(true);
             t.start();
             try {
                 t.join();
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
 
         public void formatResult(ICommandSender sender) {
@@ -114,7 +125,8 @@ public class CrossCommand extends SubCommand {
         }
 
         public TileEntityCrop placeCrop(World world, int x, int y, int z) {
-            ItemBlock iCrop = (ItemBlock) IC2Items.getItem("crop").getItem();
+            ItemBlock iCrop = (ItemBlock) IC2Items.getItem("crop")
+                .getItem();
             assert iCrop != null;
             Block bCrop = iCrop.field_150939_a;
 
@@ -129,7 +141,6 @@ public class CrossCommand extends SubCommand {
             crop.size = IC2Crops.cropReed.maxSize();
             crop.statGrowth = Growth;
         }
-
 
         public TileEntityCrop placeCropPair(World world, int x, int y, int z) {
             // Left

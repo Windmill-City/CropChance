@@ -15,7 +15,9 @@ public class CropChance {
 
     public static final Logger LOG = LogManager.getLogger(Tags.MODID);
 
-    @SidedProxy(clientSide = "city.windmill.cropchance.ClientProxy", serverSide = "city.windmill.cropchance.CommonProxy")
+    @SidedProxy(
+        clientSide = "city.windmill.cropchance.ClientProxy",
+        serverSide = "city.windmill.cropchance.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler

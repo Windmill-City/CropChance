@@ -21,18 +21,22 @@ public class BasicCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        String subs = Commands.stream().map(c -> c.Name).collect(Collectors.joining(" | "));
+        String subs = Commands.stream()
+            .map(c -> c.Name)
+            .collect(Collectors.joining(" | "));
         return String.format("/crop <%s>", subs);
     }
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-        if (args.length == 0)
-            return Commands.stream().map(s -> s.Name).collect(Collectors.toList());
-        else if (args.length == 1)
-            return Commands.stream().map(s -> s.Name).filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
-        else
-            return Collections.emptyList();
+        if (args.length == 0) return Commands.stream()
+            .map(s -> s.Name)
+            .collect(Collectors.toList());
+        else if (args.length == 1) return Commands.stream()
+            .map(s -> s.Name)
+            .filter(s -> s.startsWith(args[0]))
+            .collect(Collectors.toList());
+        else return Collections.emptyList();
     }
 
     @Override
@@ -45,10 +49,8 @@ public class BasicCommand extends CommandBase {
         String subName = args[0];
         for (SubCommand s : Commands) {
             if (s.Name.equals(subName)) {
-                if (args.length > 1)
-                    s.processCommand(sender, Arrays.copyOfRange(args, 1, args.length));
-                else
-                    s.processCommand(sender, new String[0]);
+                if (args.length > 1) s.processCommand(sender, Arrays.copyOfRange(args, 1, args.length));
+                else s.processCommand(sender, new String[0]);
                 return;
             }
         }

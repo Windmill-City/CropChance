@@ -1,20 +1,23 @@
 package city.windmill.cropchance.command;
 
-import city.windmill.cropchance.mixin.MixinIC2Crops;
-import com.mojang.realmsclient.gui.ChatFormatting;
-import ic2.api.crops.Crops;
-import ic2.core.crop.IC2Crops;
-import ic2.core.crop.TileEntityCrop;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.mojang.realmsclient.gui.ChatFormatting;
+
+import city.windmill.cropchance.mixin.MixinIC2Crops;
+import ic2.api.crops.Crops;
+import ic2.core.crop.IC2Crops;
+import ic2.core.crop.TileEntityCrop;
 
 public class InfoCommand extends SubCommand {
+
     public InfoCommand() {
         super("info");
 
@@ -36,7 +39,8 @@ public class InfoCommand extends SubCommand {
             }
             if (args[0].equals("biome")) {
                 ChunkCoordinates coord = sender.getPlayerCoordinates();
-                BiomeGenBase biome = sender.getEntityWorld().getBiomeGenForCoords(coord.posX, coord.posZ);
+                BiomeGenBase biome = sender.getEntityWorld()
+                    .getBiomeGenForCoords(coord.posX, coord.posZ);
                 c.beginAttr("Biome Info");
                 showBiomeInfo(c, biome);
                 c.endAttr();
@@ -68,23 +72,28 @@ public class InfoCommand extends SubCommand {
     }
 
     public static void printHelpTypes(AdvChatComponent c) {
-        c.text(ChatFormatting.RESET, "/crop info types <page>").commit();
+        c.text(ChatFormatting.RESET, "/crop info types <page>")
+            .commit();
     }
 
     public static void printHelpBiomes(AdvChatComponent c) {
-        c.text(ChatFormatting.RESET, "/crop info biomes <page>").commit();
+        c.text(ChatFormatting.RESET, "/crop info biomes <page>")
+            .commit();
     }
 
     public static void printHelp(AdvChatComponent c) {
-        c.text(ChatFormatting.RESET, "/crop info <tick | types | biome>").commit();
+        c.text(ChatFormatting.RESET, "/crop info <tick | types | biome>")
+            .commit();
     }
 
     public static void showBiomeInfo(AdvChatComponent c, BiomeGenBase biome) {
         c.attr("Name", biome.biomeName);
         c.attr("Id", biome.biomeID);
-        c.attr("Type", Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
-            .map(Enum::name)
-            .collect(Collectors.joining(", ")));
+        c.attr(
+            "Type",
+            Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
+                .map(Enum::name)
+                .collect(Collectors.joining(", ")));
         c.attr("Humidity", Crops.instance.getHumidityBiomeBonus(biome));
         c.attr("Nutrient", Crops.instance.getNutrientBiomeBonus(biome));
     }
@@ -92,7 +101,7 @@ public class InfoCommand extends SubCommand {
     public static void showBiomesInfo(AdvChatComponent c, int page) {
         List<BiomeGenBase> biomes = Arrays.stream(BiomeGenBase.getBiomeGenArray())
             .filter(Objects::nonNull)
-            .toList();
+            .collect(Collectors.toList());
         int total = biomes.size();
 
         page = MathHelper.clamp_int(page, 1, total);
@@ -104,19 +113,25 @@ public class InfoCommand extends SubCommand {
     public static List<BiomeDictionary.Type> getBiomeTypeKeys() {
         HashSet<BiomeDictionary.Type> keys = new HashSet<>();
         MixinIC2Crops crops = (MixinIC2Crops) IC2Crops.instance;
-        keys.addAll(crops.getHumidityBiomeTypeBonus().keySet());
-        keys.addAll(crops.getNutrientBiomeTypeBonus().keySet());
+        keys.addAll(
+            crops.getHumidityBiomeTypeBonus()
+                .keySet());
+        keys.addAll(
+            crops.getNutrientBiomeTypeBonus()
+                .keySet());
         return new ArrayList<>(keys);
     }
 
     public static int getHumidity(BiomeDictionary.Type type) {
         MixinIC2Crops crops = (MixinIC2Crops) IC2Crops.instance;
-        return crops.getHumidityBiomeTypeBonus().getOrDefault(type, 0);
+        return crops.getHumidityBiomeTypeBonus()
+            .getOrDefault(type, 0);
     }
 
     public static int getNutrient(BiomeDictionary.Type type) {
         MixinIC2Crops crops = (MixinIC2Crops) IC2Crops.instance;
-        return crops.getNutrientBiomeTypeBonus().getOrDefault(type, 0);
+        return crops.getNutrientBiomeTypeBonus()
+            .getOrDefault(type, 0);
     }
 
     public static void showBiomeTypesPage(AdvChatComponent c, int page) {
@@ -136,14 +151,12 @@ public class InfoCommand extends SubCommand {
             c.attr("Name", key.name());
             c.attr("Humidity", getHumidity(key));
             c.attr("Nutrient", getNutrient(key));
-            //Not last line
-            if (i != iEnd - 1)
-                c.endAttr();
+            // Not last line
+            if (i != iEnd - 1) c.endAttr();
         }
 
         c.endPage("/crop info types %d", page, page - 1, page + 1, maxPage);
     }
-
 
     public static void infoTick(AdvChatComponent c) {
         c.beginAttr("Tick Info");
