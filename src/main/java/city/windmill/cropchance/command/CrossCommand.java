@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
+import city.windmill.cropchance.CropChance;
 import city.windmill.cropchance.DummyWorld;
 import ic2.api.crops.CropCard;
 import ic2.api.crops.Crops;
@@ -91,6 +92,7 @@ public class CrossCommand extends BasicCommand {
                 } catch (IllegalArgumentException e) {
                     msg(sender, e.getMessage());
                 } catch (Exception e) {
+                    CropChance.LOG.error("Exception throw during crossing", e);
                     msgEx(sender, e);
                 }
             });

@@ -10,6 +10,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
+import city.windmill.cropchance.CropChance;
+
 public abstract class BasicCommand extends CommandBase {
 
     @Nonnull
@@ -73,6 +75,7 @@ public abstract class BasicCommand extends CommandBase {
                                 .collect(Collectors.toList()));
                     return;
                 } catch (Exception e) {
+                    CropChance.LOG.error("Exception throw during command handling", e);
                     msgEx(sender, e);
                     return;
                 }
@@ -163,7 +166,7 @@ public abstract class BasicCommand extends CommandBase {
                 e.getClass()
                     .toString())
                 .commit();
-            c.addAttr("Message", e.getMessage())
+            if (e.getMessage() != null) c.addAttr("Message", e.getMessage())
                 .commit();
             c.addAttr("Stacktrace", "")
                 .commit();
