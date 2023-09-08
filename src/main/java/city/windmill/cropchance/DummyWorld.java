@@ -5,10 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.util.LongHashMap;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.WorldSettings;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -65,6 +62,22 @@ public class DummyWorld extends World {
     @Override
     protected boolean chunkExists(int cx, int cz) {
         return this.LoadedChunks.containsItem(ChunkCoordIntPair.chunkXZ2Int(cx, cz));
+    }
+
+    /**
+     * Override as archaicFix crash when running cross
+     */
+    @Override
+    public boolean updateLightByType(EnumSkyBlock p_147463_1_, int p_147463_2_, int p_147463_3_, int p_147463_4_) {
+        return false;
+    }
+
+    /**
+     * Override as archaicFix crash when running cross
+     */
+    @Override
+    public int getBlockLightValue_do(int p_72849_1_, int p_72849_2_, int p_72849_3_, boolean p_72849_4_) {
+        return 15;
     }
 
     /**

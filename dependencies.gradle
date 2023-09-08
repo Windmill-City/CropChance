@@ -35,4 +35,5 @@
  */
 dependencies {
     api("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
+    runtimeOnly('curse.maven:ArchaicFix-677782:4682817')
 }

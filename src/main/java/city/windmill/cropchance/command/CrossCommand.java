@@ -100,9 +100,6 @@ public class CrossCommand extends BasicCommand {
             t.setName("Server thread");
             t.setDaemon(true);
             t.start();
-            try {
-                t.join();
-            } catch (Exception ignored) {}
         }
 
         public void formatResult(ICommandSender sender) {
