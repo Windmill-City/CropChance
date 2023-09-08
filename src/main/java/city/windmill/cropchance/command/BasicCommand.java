@@ -2,6 +2,7 @@ package city.windmill.cropchance.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,10 @@ public class BasicCommand extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         if (args.length == 0)
             return Commands.stream().map(s -> s.Name).collect(Collectors.toList());
-        else
+        else if (args.length == 1)
             return Commands.stream().map(s -> s.Name).filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
+        else
+            return Collections.emptyList();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class BasicCommand extends CommandBase {
                 return;
             }
         }
+        getCommandUsage(sender);
     }
 
     public void register(SubCommand command) {

@@ -1,0 +1,8 @@
+{
+  "package": "city.windmill.cropchance.mixin",
+  "mixins": [
+    "MixinIC2Crops"
+  ],
+  "client": [],
+  "server": []
+}
