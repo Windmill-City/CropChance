@@ -84,7 +84,7 @@ public class InfoCommand extends BasicCommand {
                 getCommandPrefix(),
                 getPage(args),
                 biomes,
-                biome -> { BiomeCommand.showBiomeInfo(c, biome); });
+                biome -> BiomeCommand.showBiomeInfo(c, biome));
             c.build();
         }
     }
