@@ -3,12 +3,12 @@ package city.windmill.cropchance.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.ModContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.MathHelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.ModContainer;
 import ic2.api.crops.CropCard;
 import ic2.core.crop.IC2Crops;
 
@@ -49,14 +49,11 @@ public class CropCardCommand extends BasicCommand {
         c.attr("DiscoveredBy", crop.discoveredBy());
 
         // Mod Name
-        ModContainer container = FMLCommonHandler.instance().findContainerFor(crop.owner());
+        ModContainer container = FMLCommonHandler.instance()
+            .findContainerFor(crop.owner());
         c.attrSameLine("Owner", crop.owner());
-        if (container != null)
-            c.attr(
-                "Name", container.getName()
-            );
-        else
-            c.commit();
+        if (container != null) c.attr("Name", container.getName());
+        else c.commit();
 
         // Attributes
         String attrs = String.join(", ", crop.attributes());
