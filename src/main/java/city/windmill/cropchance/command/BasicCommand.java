@@ -141,32 +141,40 @@ public abstract class BasicCommand extends CommandBase {
     }
 
     public static void msgEx(ICommandSender sender, Exception e) {
-        AdvChatComponent c = new AdvChatComponent(sender);
+        ChatBuilder c = new ChatBuilder(sender);
         if (e instanceof InvalidArgumentException) {
-            c.beginAttr("Invalid Argument: %s");
-            c.attr("Name", ((InvalidArgumentException) e).ArgName);
-            c.attr("Invalid Value", ((InvalidArgumentException) e).InvalidVal);
-            if (((InvalidArgumentException) e).Desc != null) c.attr("Desc", ((InvalidArgumentException) e).Desc);
-            c.endAttr();
+            c.addTitle("Invalid Argument: %s");
+            c.addAttr("Name", ((InvalidArgumentException) e).ArgName)
+                .commit();
+            c.addAttr("Invalid Value", ((InvalidArgumentException) e).InvalidVal)
+                .commit();
+            if (((InvalidArgumentException) e).Desc != null) c.addAttr("Desc", ((InvalidArgumentException) e).Desc)
+                .commit();
+            c.addSeparator();
 
             // Show help
             c.text(((InvalidArgumentException) e).Command.getHelp())
                 .commit();
+            c.build();
         } else {
-            c.beginAttr("Error");
-            c.attr(
+            c.addTitle("Error");
+            c.addAttr(
                 "Exception",
                 e.getClass()
-                    .getTypeName());
-            c.attr("Message", e.getMessage());
-            c.attr("Stacktrace", "");
+                    .getTypeName())
+                .commit();
+            c.addAttr("Message", e.getMessage())
+                .commit();
+            c.addAttr("Stacktrace", "")
+                .commit();
             Arrays.stream(e.getStackTrace())
                 .limit(6)
                 .map(StackTraceElement::toString)
                 .forEachOrdered(
                     it -> c.text(it)
                         .commit());
-            c.endAttr();
+            c.addSeparator();
+            c.build();
         }
     }
 

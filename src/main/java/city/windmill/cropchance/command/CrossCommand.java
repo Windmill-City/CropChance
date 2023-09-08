@@ -91,7 +91,7 @@ public class CrossCommand extends BasicCommand {
 
                     formatResult(sender);
                 } catch (Exception e) {
-                    new AdvChatComponent(sender).text(ChatFormatting.RESET, e.getMessage())
+                    new ChatBuilder(sender).text(ChatFormatting.RESET, e.getMessage())
                         .commit();
                 }
             });
@@ -105,19 +105,29 @@ public class CrossCommand extends BasicCommand {
         }
 
         public void formatResult(ICommandSender sender) {
-            AdvChatComponent c = new AdvChatComponent(sender);
+            ChatBuilder c = new ChatBuilder(sender);
 
-            c.beginAttr("Result");
-            c.attr("Growth", Growth);
-            c.attr("Surround", Surround);
-            c.endAttr();
+            c.addTitle("Result");
+            c.addAttr("Growth", Growth)
+                .commit();
+            c.addAttr("Surround", Surround)
+                .commit();
+            c.addSeparator();
 
-            c.attr("Try", TryCross);
-            c.attrSameLine("Weed", Weeded);
-            c.attr("Percent %", 100f * Weeded / TryCross);
-            c.attrSameLine("Cross", Crossed);
-            c.attr("Percent %", 100f * Crossed / TryCross);
-            c.endAttr();
+            c.addAttr("Try", TryCross)
+                .commit();
+
+            c.addAttr("Weed", Weeded);
+            c.addAttr("Percent", 100f * Weeded / TryCross)
+                .text("%")
+                .commit();
+
+            c.addAttr("Cross", Crossed);
+            c.addAttr("Percent", 100f * Crossed / TryCross)
+                .text("%")
+                .commit();
+            c.addSeparator();
+            c.build();
         }
 
         public TileEntityCrop placeCrop(World world, int x, int y, int z) {
