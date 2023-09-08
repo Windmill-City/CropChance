@@ -1,6 +1,6 @@
 package city.windmill.cropchance;
 
-import city.windmill.cropchance.command.BasicCommand;
+import city.windmill.cropchance.command.CropCommand;
 import city.windmill.cropchance.command.CropCardCommand;
 import city.windmill.cropchance.command.CrossCommand;
 import city.windmill.cropchance.command.InfoCommand;
@@ -15,28 +15,20 @@ public class CommonProxy {
     // etc., and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-
-        CropChance.LOG.info(Config.greeting);
-        CropChance.LOG.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about.
     // Register recipes." (Remove if not needed)
-    public void init(FMLInitializationEvent event) {}
+    public void init(FMLInitializationEvent event) {
+    }
 
     // postInit "Handle interaction with other mods, complete your setup based on
     // this." (Remove if not needed)
-    public void postInit(FMLPostInitializationEvent event) {}
+    public void postInit(FMLPostInitializationEvent event) {
+    }
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        BasicCommand basic = new BasicCommand();
-
-        basic.register(new InfoCommand());
-        basic.register(new CropCardCommand());
-        basic.register(new CrossCommand());
-
-        event.registerServerCommand(basic);
+        event.registerServerCommand(new CropCommand());
     }
 }

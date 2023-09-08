@@ -1,7 +1,7 @@
 package city.windmill.cropchance.command;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
@@ -13,39 +13,30 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.crops.CropCard;
 import ic2.core.crop.IC2Crops;
 
-public class CropCardCommand extends SubCommand {
-
+public class CropCardCommand extends BasicCommand {
     public CropCardCommand() {
         super("cropcard");
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public String getHelp() {
+        return getCommandPrefix() + " [page]";
+    }
+
+    @Override
+    public void processCommand(ICommandSender sender, List<String> args) {
         AdvChatComponent c = new AdvChatComponent(sender);
 
-        int page = 1;
-
-        if (args.length == 1) {
-            try {
-                page = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                c.text(ChatFormatting.RESET, "/crop cropcard <page>")
-                    .commit();
-                return;
-            }
-        }
-
-        int size = IC2Crops.instance.getCrops()
-            .size();
+        int page = getPage(args);
+        int size = IC2Crops.instance.getCrops().size();
         page = MathHelper.clamp_int(page, 1, size);
 
-        c.beginPage("CropCard", "/crop cropcard %d", page, page - 1, page + 1, size);
+        c.beginPage("CropCard", getCommandPrefix(), page, size);
 
-        CropCard crop = new ArrayList<>(IC2Crops.instance.getCrops())
-            .get(page - 1);
+        CropCard crop = new ArrayList<>(IC2Crops.instance.getCrops()).get(page - 1);
         formatCropCard(crop, c);
 
-        c.endPage("/crop cropcard %d", page, page - 1, page + 1, size);
+        c.endPage(getCommandPrefix(), page, size);
     }
 
     public static void formatCropCard(CropCard crop, AdvChatComponent c) {
@@ -68,5 +59,4 @@ public class CropCardCommand extends SubCommand {
         String attrs = String.join(", ", crop.attributes());
         c.attr("Attr", attrs);
     }
-
 }

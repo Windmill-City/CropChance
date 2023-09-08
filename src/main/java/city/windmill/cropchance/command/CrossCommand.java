@@ -15,36 +15,34 @@ import ic2.api.item.IC2Items;
 import ic2.core.crop.IC2Crops;
 import ic2.core.crop.TileEntityCrop;
 
-public class CrossCommand extends SubCommand {
+import java.util.List;
+
+public class CrossCommand extends BasicCommand {
 
     public CrossCommand() {
         super("cross");
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void processCommand(ICommandSender sender, List<String> args) {
         AdvChatComponent c = new AdvChatComponent(sender);
 
-        if (args.length == 3) {
+        if (args.size() == 3) {
             try {
-                int tryCross = (int) Float.parseFloat(args[0]);
-                int growth = Integer.parseInt(args[1]);
-                int surround = Integer.parseInt(args[2]);
+                int tryCross = (int) Float.parseFloat(args.get(0));
+                int growth = Integer.parseInt(args.get(1));
+                int surround = Integer.parseInt(args.get(2));
 
                 new CrossTry(IC2Crops.cropReed, growth, surround, tryCross).runCross(sender);
-            } catch (Exception e) {
-                c.text(
-                    ChatFormatting.RESET,
-                    e.getClass()
-                        .getTypeName() + e.getMessage())
-                    .commit();
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException(this, "try/growth/surround", String.join(", ", args));
             }
-        } else printHelp(c);
+        } else getCommandUsage(sender);
     }
 
-    public static void printHelp(AdvChatComponent c) {
-        c.text(ChatFormatting.RESET, "/crop cross <try> <growth> <surround>")
-            .commit();
+    @Override
+    public String getHelp() {
+        return getCommandPrefix() + " <try> <growth> <surround>";
     }
 
     public static class CrossTry {
@@ -105,7 +103,8 @@ public class CrossCommand extends SubCommand {
             t.start();
             try {
                 t.join();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         public void formatResult(ICommandSender sender) {

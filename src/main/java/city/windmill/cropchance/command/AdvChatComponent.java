@@ -46,7 +46,12 @@ public class AdvChatComponent {
         return this;
     }
 
-    public void beginPage(String title, String cmd, int cur, int prev, int next, int max) {
+    public AdvChatComponent text(String text) {
+        return text(ChatFormatting.RESET, text);
+    }
+
+    public void beginPage(String title, String cmd, int cur, int max) {
+        cmd = cmd + " %d";
         int lenTitle = title.length();
         int padding = TitleLength - lenTitle - 17;
 
@@ -55,22 +60,23 @@ public class AdvChatComponent {
         text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.AQUA, title);
         text(ChatFormatting.RESET, String.format(" Page: %d/%d (", cur, max));
-        Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, prev));
+        Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, cur - 1));
         text(ChatFormatting.RESET, "/");
-        Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, next));
+        Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, cur + 1));
         text(ChatFormatting.RESET, ")");
         text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
         commit();
     }
 
-    public void endPage(String cmd, int cur, int prev, int next, int max) {
+    public void endPage(String cmd, int cur, int max) {
+        cmd = cmd + " %d";
         int padding = TitleLength - 17;
 
         text(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
         text(ChatFormatting.RESET, String.format("Page: %d/%d (", cur, max));
-        Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, prev));
+        Text.appendSibling(ComponentCommand("Prev", EnumChatFormatting.RESET, cmd, cur - 1));
         text(ChatFormatting.RESET, "/");
-        Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, next));
+        Text.appendSibling(ComponentCommand("Next", EnumChatFormatting.RESET, cmd, cur + 1));
         text(ChatFormatting.RESET, ")");
         text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
         commit();
