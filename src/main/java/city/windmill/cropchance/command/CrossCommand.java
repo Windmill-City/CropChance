@@ -8,8 +8,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import city.windmill.cropchance.DummyWorld;
 import ic2.api.crops.CropCard;
 import ic2.api.crops.Crops;
@@ -90,9 +88,10 @@ public class CrossCommand extends BasicCommand {
                     }
 
                     formatResult(sender);
+                } catch (IllegalArgumentException e) {
+                    msg(sender, e.getMessage());
                 } catch (Exception e) {
-                    new ChatBuilder(sender).text(ChatFormatting.RESET, e.getMessage())
-                        .commit();
+                    msgEx(sender, e);
                 }
             });
             // Make IC2's isSimulating return true
