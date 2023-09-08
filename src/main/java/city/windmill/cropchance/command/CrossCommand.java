@@ -25,8 +25,6 @@ public class CrossCommand extends BasicCommand {
 
     @Override
     public void processCommand(ICommandSender sender, List<String> args) {
-        AdvChatComponent c = new AdvChatComponent(sender);
-
         if (args.size() == 3) {
             try {
                 int tryCross = (int) Float.parseFloat(args.get(0));

@@ -1,9 +1,6 @@
 package city.windmill.cropchance;
 
 import city.windmill.cropchance.command.CropCommand;
-import city.windmill.cropchance.command.CropCardCommand;
-import city.windmill.cropchance.command.CrossCommand;
-import city.windmill.cropchance.command.InfoCommand;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

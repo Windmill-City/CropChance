@@ -1,17 +1,14 @@
 package city.windmill.cropchance.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.common.FMLCommonHandler;
+import ic2.api.crops.CropCard;
+import ic2.core.crop.IC2Crops;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.MathHelper;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import ic2.api.crops.CropCard;
-import ic2.core.crop.IC2Crops;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CropCardCommand extends BasicCommand {
     public CropCardCommand() {
