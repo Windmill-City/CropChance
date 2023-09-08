@@ -7,4 +7,9 @@ public class CropCommand extends BasicCommand {
         addChild(new CropCardCommand());
         addChild(new CrossCommand());
     }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 0;
+    }
 }

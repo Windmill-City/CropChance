@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.client.ClientCommandHandler;
 
 public class CommonProxy {
 
@@ -17,6 +18,7 @@ public class CommonProxy {
     // load "Do your mod setup. Build whatever data structures you care about.
     // Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
+        ClientCommandHandler.instance.registerCommand(new CropCommand());
     }
 
     // postInit "Handle interaction with other mods, complete your setup based on
@@ -26,6 +28,5 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CropCommand());
     }
 }
