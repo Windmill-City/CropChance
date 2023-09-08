@@ -1,5 +1,7 @@
 package city.windmill.cropchance.command;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.init.Blocks;
@@ -14,8 +16,6 @@ import ic2.api.crops.Crops;
 import ic2.api.item.IC2Items;
 import ic2.core.crop.IC2Crops;
 import ic2.core.crop.TileEntityCrop;
-
-import java.util.List;
 
 public class CrossCommand extends BasicCommand {
 
@@ -35,8 +35,7 @@ public class CrossCommand extends BasicCommand {
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException(this, "try/growth/surround", String.join(", ", args));
             }
-        } else
-            msg(sender, getCommandUsage(sender));
+        } else msg(sender, getCommandUsage(sender));
     }
 
     @Override
@@ -102,8 +101,7 @@ public class CrossCommand extends BasicCommand {
             t.start();
             try {
                 t.join();
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
 
         public void formatResult(ICommandSender sender) {

@@ -1,16 +1,18 @@
 package city.windmill.cropchance.command;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import ic2.api.crops.CropCard;
-import ic2.core.crop.IC2Crops;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.MathHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import cpw.mods.fml.common.FMLCommonHandler;
+import ic2.api.crops.CropCard;
+import ic2.core.crop.IC2Crops;
 
 public class CropCardCommand extends BasicCommand {
+
     public CropCardCommand() {
         super("cropcard");
     }
@@ -25,7 +27,8 @@ public class CropCardCommand extends BasicCommand {
         AdvChatComponent c = new AdvChatComponent(sender);
 
         int page = getPage(args);
-        int size = IC2Crops.instance.getCrops().size();
+        int size = IC2Crops.instance.getCrops()
+            .size();
         page = MathHelper.clamp_int(page, 1, size);
 
         c.beginPage("CropCard", getCommandPrefix(), page, size);

@@ -1,6 +1,7 @@
 package city.windmill.cropchance.command;
 
 public class CropCommand extends BasicCommand {
+
     public CropCommand() {
         super("crop");
         addChild(new InfoCommand());

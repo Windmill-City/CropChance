@@ -1,18 +1,18 @@
 package city.windmill.cropchance.command;
 
-import city.windmill.cropchance.mixin.MixinIC2Crops;
-import ic2.api.crops.Crops;
-import ic2.core.crop.IC2Crops;
-import ic2.core.crop.TileEntityCrop;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import city.windmill.cropchance.mixin.MixinIC2Crops;
+import ic2.api.crops.Crops;
+import ic2.core.crop.IC2Crops;
+import ic2.core.crop.TileEntityCrop;
 
 public class InfoCommand extends BasicCommand {
 
@@ -25,6 +25,7 @@ public class InfoCommand extends BasicCommand {
     }
 
     public static class BiomeCommand extends BasicCommand {
+
         public BiomeCommand() {
             super("biome");
         }
@@ -55,6 +56,7 @@ public class InfoCommand extends BasicCommand {
     }
 
     public static class BiomesCommand extends BasicCommand {
+
         public BiomesCommand() {
             super("biomes");
         }
@@ -70,7 +72,6 @@ public class InfoCommand extends BasicCommand {
             showBiomesInfo(new AdvChatComponent(sender), page);
         }
 
-
         public void showBiomesInfo(AdvChatComponent c, int page) {
             List<BiomeGenBase> biomes = Arrays.stream(BiomeGenBase.getBiomeGenArray())
                 .filter(Objects::nonNull)
@@ -85,6 +86,7 @@ public class InfoCommand extends BasicCommand {
     }
 
     public static class BiomeTypesCommand extends BasicCommand {
+
         public BiomeTypesCommand() {
             super("types");
         }
@@ -150,6 +152,7 @@ public class InfoCommand extends BasicCommand {
     }
 
     public static class TickRateCommand extends BasicCommand {
+
         public TickRateCommand() {
             super("tickrate");
         }
