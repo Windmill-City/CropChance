@@ -60,6 +60,11 @@ public class InfoCommand extends BasicCommand {
         }
 
         @Override
+        public String getHelp() {
+            return getCommandPrefix() + " [page]";
+        }
+
+        @Override
         public void processCommand(ICommandSender sender, List<String> args) {
             int page = getPage(args);
             showBiomesInfo(new AdvChatComponent(sender), page);
@@ -155,7 +160,7 @@ public class InfoCommand extends BasicCommand {
         }
 
         public static void showTickRate(AdvChatComponent c) {
-            c.beginAttr("TickRate Info");
+            c.beginAttr("Crop TickRate Info");
             c.attrSameLine("TickRate", TileEntityCrop.tickRate);
             c.attr("in second", TileEntityCrop.tickRate / 20f);
             c.endAttr();

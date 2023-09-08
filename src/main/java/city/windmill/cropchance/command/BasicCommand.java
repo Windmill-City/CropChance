@@ -50,25 +50,29 @@ public abstract class BasicCommand extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, List<String> args) {
-        Optional<BasicCommand> c = Child.stream().filter(it -> it.Name.equals(args.get(0))).findFirst();
-        if (c.isPresent()) {
-            try {
-                c.get().processCommand(sender, args.stream().skip(1).collect(Collectors.toList()));
-            } catch (Exception e) {
-                msgEx(sender, e);
+        if (!args.isEmpty()) {
+            Optional<BasicCommand> c = Child.stream().filter(it -> it.Name.equals(args.get(0))).findFirst();
+            if (c.isPresent()) {
+                try {
+                    c.get().processCommand(sender, args.stream().skip(1).collect(Collectors.toList()));
+                    return;
+                } catch (Exception e) {
+                    msgEx(sender, e);
+                    return;
+                }
             }
-        } else
-            getCommandUsage(sender);
+        }
+        msg(sender, getCommandUsage(sender));
     }
 
     public final String getCommandPrefix() {
-        LinkedList<String> parents = new LinkedList<>();
+        LinkedList<String> prefix = new LinkedList<>();
         BasicCommand c = this;
-        while (c.Parent != null) {
-            parents.addFirst(c.Name);
+        while (c != null) {
+            prefix.addFirst(c.Name);
             c = c.Parent;
         }
-        return String.format("/%s", String.join(" ", parents));
+        return String.format("/%s", String.join(" ", prefix));
     }
 
     @Override
@@ -136,6 +140,11 @@ public abstract class BasicCommand extends CommandBase {
             c.beginAttr("Error");
             c.attr("Exception", e.getClass().getTypeName());
             c.attr("Message", e.getMessage());
+            c.attr("Stacktrace", "");
+            Arrays.stream(e.getStackTrace())
+                .limit(6)
+                .map(StackTraceElement::toString)
+                .forEachOrdered(it -> msg(sender, it));
             c.endAttr();
         }
     }

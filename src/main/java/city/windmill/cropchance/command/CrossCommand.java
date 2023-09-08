@@ -37,7 +37,8 @@ public class CrossCommand extends BasicCommand {
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException(this, "try/growth/surround", String.join(", ", args));
             }
-        } else getCommandUsage(sender);
+        } else
+            msg(sender, getCommandUsage(sender));
     }
 
     @Override
