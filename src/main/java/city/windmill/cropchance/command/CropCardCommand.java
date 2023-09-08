@@ -1,5 +1,6 @@
 package city.windmill.cropchance.command;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import net.minecraft.client.resources.I18n;
@@ -40,9 +41,7 @@ public class CropCardCommand extends SubCommand {
 
         c.beginPage("CropCard", "/crop cropcard %d", page, page - 1, page + 1, size);
 
-        CropCard crop = IC2Crops.instance.getCrops()
-            .stream()
-            .collect(Collectors.toList())
+        CropCard crop = new ArrayList<>(IC2Crops.instance.getCrops())
             .get(page - 1);
         formatCropCard(crop, c);
 
