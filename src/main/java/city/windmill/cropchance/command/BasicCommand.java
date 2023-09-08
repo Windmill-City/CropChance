@@ -163,7 +163,9 @@ public abstract class BasicCommand extends CommandBase {
             Arrays.stream(e.getStackTrace())
                 .limit(6)
                 .map(StackTraceElement::toString)
-                .forEachOrdered(it -> msg(sender, it));
+                .forEachOrdered(
+                    it -> c.text(it)
+                        .commit());
             c.endAttr();
         }
     }

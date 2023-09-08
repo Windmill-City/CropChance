@@ -78,10 +78,21 @@ public class InfoCommand extends BasicCommand {
                 .collect(Collectors.toList());
             int total = biomes.size();
 
-            page = MathHelper.clamp_int(page, 1, total);
-            c.beginPage("Biomes", getCommandPrefix(), page, total);
-            BiomeCommand.showBiomeInfo(c, biomes.get(page - 1));
-            c.endPage(getCommandPrefix(), page, total);
+            int itemPerPage = 3;
+            int maxPage = (int) Math.ceil((double) total / itemPerPage);
+            page = MathHelper.clamp_int(page, 1, maxPage);
+
+            c.beginPage("Biomes", getCommandPrefix(), page, maxPage);
+
+            int iStart = (page - 1) * itemPerPage;
+            int iEnd = Math.min(page * itemPerPage, total);
+            for (int i = iStart; i < iEnd; i++) {
+                BiomeCommand.showBiomeInfo(c, biomes.get(i));
+                // Not last line
+                if (i != iEnd - 1) c.endAttr();
+            }
+
+            c.endPage(getCommandPrefix(), page, maxPage);
         }
     }
 
@@ -105,7 +116,7 @@ public class InfoCommand extends BasicCommand {
         public void showBiomeTypesPage(AdvChatComponent c, int page) {
             List<BiomeDictionary.Type> keys = getBiomeTypeKeys();
 
-            int itemPerPage = 2;
+            int itemPerPage = 4;
             int total = keys.size();
             int maxPage = (int) Math.ceil((double) total / itemPerPage);
             page = MathHelper.clamp_int(page, 1, maxPage);
