@@ -2,7 +2,6 @@ package city.windmill.cropchance.command;
 
 import city.windmill.cropchance.mixin.MixinIC2Crops;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.crops.Crops;
 import ic2.core.crop.IC2Crops;
 import ic2.core.crop.TileEntityCrop;
@@ -11,12 +10,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InfoCommand extends SubCommand {
@@ -87,10 +82,9 @@ public class InfoCommand extends SubCommand {
     public static void showBiomeInfo(AdvChatComponent c, BiomeGenBase biome) {
         c.attr("Name", biome.biomeName);
         c.attr("Id", biome.biomeID);
-        c.attr("Type", String.join(", ",
-            Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
-                .map(Enum::name)
-                .collect(Collectors.toList())));
+        c.attr("Type", Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
+            .map(Enum::name)
+            .collect(Collectors.joining(", ")));
         c.attr("Humidity", Crops.instance.getHumidityBiomeBonus(biome));
         c.attr("Nutrient", Crops.instance.getNutrientBiomeBonus(biome));
     }
@@ -98,7 +92,7 @@ public class InfoCommand extends SubCommand {
     public static void showBiomesInfo(AdvChatComponent c, int page) {
         List<BiomeGenBase> biomes = Arrays.stream(BiomeGenBase.getBiomeGenArray())
             .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+            .toList();
         int total = biomes.size();
 
         page = MathHelper.clamp_int(page, 1, total);
@@ -112,7 +106,7 @@ public class InfoCommand extends SubCommand {
         MixinIC2Crops crops = (MixinIC2Crops) IC2Crops.instance;
         keys.addAll(crops.getHumidityBiomeTypeBonus().keySet());
         keys.addAll(crops.getNutrientBiomeTypeBonus().keySet());
-        return keys.stream().collect(Collectors.toList());
+        return new ArrayList<>(keys);
     }
 
     public static int getHumidity(BiomeDictionary.Type type) {

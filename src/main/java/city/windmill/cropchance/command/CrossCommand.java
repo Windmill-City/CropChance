@@ -59,22 +59,13 @@ public class CrossCommand extends SubCommand {
 
         public TileEntityCrop buildTryEnv() {
             DummyWorld world = new DummyWorld();
-            TileEntityCrop teCrop;
 
-            switch (Surround) {
-                case 2:
-                    teCrop = placeCropPair(world, 0, 0, 0);
-                    break;
-                case 3:
-                    teCrop = placeCropTri(world, 0, 0, 0);
-                    break;
-                case 4:
-                    teCrop = placeCropQuad(world, 0, 0, 0);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Surround valid values are: 2, 3, 4.");
-            }
-            return teCrop;
+            return switch (Surround) {
+                case 2 -> placeCropPair(world, 0, 0, 0);
+                case 3 -> placeCropTri(world, 0, 0, 0);
+                case 4 -> placeCropQuad(world, 0, 0, 0);
+                default -> throw new IllegalArgumentException("Surround valid values are: 2, 3, 4.");
+            };
         }
 
         public void runCross(ICommandSender sender) {
@@ -124,6 +115,7 @@ public class CrossCommand extends SubCommand {
 
         public TileEntityCrop placeCrop(World world, int x, int y, int z) {
             ItemBlock iCrop = (ItemBlock) IC2Items.getItem("crop").getItem();
+            assert iCrop != null;
             Block bCrop = iCrop.field_150939_a;
 
             world.setBlock(x, y, z, Blocks.farmland);
@@ -131,12 +123,11 @@ public class CrossCommand extends SubCommand {
             return (TileEntityCrop) world.getTileEntity(x, y + 1, z);
         }
 
-        public TileEntityCrop setupParent(TileEntityCrop crop) {
+        public void setupParent(TileEntityCrop crop) {
             crop.setCrop(IC2Crops.cropReed);
             // Make canCross() return true
             crop.size = IC2Crops.cropReed.maxSize();
             crop.statGrowth = Growth;
-            return crop;
         }
 
 

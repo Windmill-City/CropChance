@@ -72,7 +72,7 @@ public class DummyWorld extends World {
      */
     @Override
     public Chunk getChunkFromChunkCoords(int cx, int cz) {
-        Long ck = ChunkCoordIntPair.chunkXZ2Int(cx, cz);
+        long ck = ChunkCoordIntPair.chunkXZ2Int(cx, cz);
 
         if (LoadedChunks.containsItem(ck))
             return (Chunk) LoadedChunks.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(cx, cz));

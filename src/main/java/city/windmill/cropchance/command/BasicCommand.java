@@ -12,7 +12,7 @@ import net.minecraft.util.ChatComponentText;
 
 public class BasicCommand extends CommandBase {
 
-    private List<SubCommand> Commands = new ArrayList<>();
+    private final List<SubCommand> Commands = new ArrayList<>();
 
     @Override
     public String getCommandName() {
@@ -21,7 +21,7 @@ public class BasicCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        String subs = String.join(" | ", Commands.stream().map(c -> c.Name).collect(Collectors.toList()));
+        String subs = Commands.stream().map(c -> c.Name).collect(Collectors.joining(" | "));
         return String.format("/crop <%s>", subs);
     }
 
@@ -46,7 +46,7 @@ public class BasicCommand extends CommandBase {
         for (SubCommand s : Commands) {
             if (s.Name.equals(subName)) {
                 if (args.length > 1)
-                    s.processCommand(sender, (String[]) Arrays.copyOfRange(args, 1, args.length));
+                    s.processCommand(sender, Arrays.copyOfRange(args, 1, args.length));
                 else
                     s.processCommand(sender, new String[0]);
                 return;

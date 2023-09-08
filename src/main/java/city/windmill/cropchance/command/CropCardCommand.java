@@ -1,16 +1,12 @@
 package city.windmill.cropchance.command;
 
-import net.minecraft.client.resources.I18n;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.util.MathHelper;
-
-import java.util.stream.Collectors;
-
 import com.mojang.realmsclient.gui.ChatFormatting;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.crops.CropCard;
 import ic2.core.crop.IC2Crops;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.util.MathHelper;
 
 public class CropCardCommand extends SubCommand {
 
@@ -38,7 +34,7 @@ public class CropCardCommand extends SubCommand {
 
         c.beginPage("CropCard", "/crop cropcard %d", page, page - 1, page + 1, size);
 
-        CropCard crop = IC2Crops.instance.getCrops().stream().collect(Collectors.toList()).get(page - 1);
+        CropCard crop = IC2Crops.instance.getCrops().stream().toList().get(page - 1);
         formatCropCard(crop, c);
 
         c.endPage("/crop cropcard %d", page, page - 1, page + 1, size);
@@ -53,9 +49,9 @@ public class CropCardCommand extends SubCommand {
         c.attr("DiscoveredBy", crop.discoveredBy());
 
         // Mod Name
-        c.attrSameLine("Owner", crop.owner())
-            .attr("Name",
-                FMLCommonHandler.instance().findContainerFor(crop.owner()).getName());
+        c.attrSameLine("Owner", crop.owner());
+        c.attr("Name",
+            FMLCommonHandler.instance().findContainerFor(crop.owner()).getName());
 
         // Attributes
         String attrs = String.join(", ", crop.attributes());
