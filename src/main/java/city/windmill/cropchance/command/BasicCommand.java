@@ -161,7 +161,7 @@ public abstract class BasicCommand extends CommandBase {
             c.addAttr(
                 "Exception",
                 e.getClass()
-                    .getTypeName())
+                    .toString())
                 .commit();
             c.addAttr("Message", e.getMessage())
                 .commit();
