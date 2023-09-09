@@ -12,22 +12,27 @@ A mod for getting IC2 crop related information.
 ### Biomes info
 
 `/crop info biome` - Show `Humidity` & `Nutrient` info of current pos.
+
 ![BiomeInfo.png](docs/BiomeInfo.png)
 
 `/crop info biomes` - Show `Humidity` & `Nutrient` info of all available biomes.
+
 ![BiomesInfo.png](docs/BiomesInfo.png)
 
 `/crop info types` - Show `Humidity` & `Nutrient` info of all available biome types.
+
 ![BiomeTypesInfo.png](docs/BiomeTypesInfo.png)
 
 ### TickRate info
 
 `/crop info tickrate` - Show `tickrate` of IC2 Crops.
+
 ![TickRate.png](docs/TickRate.png)
 
 ### CropCard info
 
 `/crop cropcard` - Show info of all available CropCards
+
 ![CropCard.png](docs/CropCard.png)
 
 ### Cross Chance info
