@@ -15,7 +15,7 @@ A mod for getting IC2 crop related information.
 
 ![Tick.png](docs/Tick.png)
 
-There is a bug that the weed only spread to the `z-1` or `x-1`;
+There is a bug that the weed only spread to the block at `z-1` or `x-1`;
 
 ```java
 class TileEntityCrop {
