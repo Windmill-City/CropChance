@@ -25,7 +25,10 @@ public abstract class CropAction extends BasicCommand {
                 .getTileEntity(objHit.blockX, objHit.blockY, objHit.blockZ);
             if (e instanceof TileEntityCrop) {
                 TileEntityCrop crop = (TileEntityCrop) e;
-                if (crop.getCrop() == null) msg(sender, "No crop on it!");
+                if (crop.getCrop() == null) {
+                    msg(sender, "No crop on it!");
+                    return;
+                }
                 doAction(crop, sender, args);
                 return;
             }
