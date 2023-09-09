@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.minecraft.command.ICommandSender;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
 import ic2.core.crop.TileEntityCrop;
 
 public class ShowCommand extends CropAction {
@@ -34,6 +36,11 @@ public class ShowCommand extends CropAction {
             .commit();
         c.addAttr("Growth Points", crop.growthPoints);
         c.addAttr("Size", crop.getSize())
+            .text(
+                ChatFormatting.YELLOW,
+                " (%d)",
+                crop.getCrop()
+                    .maxSize())
             .commit();
 
         c.addTitle("Env");
@@ -45,20 +52,21 @@ public class ShowCommand extends CropAction {
         c.addTitle("Requirements");
         c.addAttr("Have", getHave(crop));
         c.addAttr("Need", getNeed(crop));
-        int growRateMin = getGrowRateMin(crop);
-        int growRateMax = getGrowRateMax(crop);
-        int growRateAvg = (growRateMin + growRateMax) / 2;
-        c.addAttr("GrowRate", "[%d, %d] (%d)", growRateMin, growRateMax, growRateAvg)
+        int growthRateMin = getGrowthRateMin(crop);
+        int growthRateMax = getGrowthRateMax(crop);
+        int growthRateAvg = (growthRateMin + growthRateMax) / 2;
+        c.addAttr("GrowthRate", "[%d, %d] (%d)", growthRateMin, growthRateMax, growthRateAvg)
             .commit();
 
         int duration = crop.getCrop()
             .growthDuration(crop);
-        int minTick = duration / growRateMax;
-        int maxTick = duration / growRateMin;
+        int minTick = duration / growthRateMax;
+        int maxTick = duration / growthRateMin;
         float minMs = minTick * TileEntityCrop.tickRate / 20f / 60f;
         float maxMs = maxTick * TileEntityCrop.tickRate / 20f / 60f;
 
-        c.addAttr("Duration (Stage)", duration);
+        c.addAttr("Duration (Stage)", duration)
+            .commit();
         c.addAttrRange("Ticks", minTick, maxTick);
         c.addAttrRange("Minutes", minMs, maxMs)
             .commit();
@@ -70,7 +78,8 @@ public class ShowCommand extends CropAction {
         int maxTickFull = maxTick * stage;
         float minMsFull = minMs * stage;
         float maxMsFull = maxMs * stage;
-        c.addAttr("Duration (Full)", durationFull);
+        c.addAttr("Duration (Full)", durationFull)
+            .commit();
         c.addAttrRange("Ticks", minTickFull, maxTickFull);
         c.addAttrRange("Minutes", minMsFull, maxMsFull)
             .commit();
@@ -79,17 +88,17 @@ public class ShowCommand extends CropAction {
         c.build();
     }
 
-    public static int getGrowRateMin(TileEntityCrop crop) {
+    public static int getGrowthRateMin(TileEntityCrop crop) {
         int base = 3 + crop.getGrowth();
-        return getGrowRateInternal(crop, base);
+        return getGrowthRateInternal(crop, base);
     }
 
-    public static int getGrowRateMax(TileEntityCrop crop) {
+    public static int getGrowthRateMax(TileEntityCrop crop) {
         int base = 3 + crop.getGrowth() + 6;
-        return getGrowRateInternal(crop, base);
+        return getGrowthRateInternal(crop, base);
     }
 
-    private static int getGrowRateInternal(TileEntityCrop crop, int base) {
+    private static int getGrowthRateInternal(TileEntityCrop crop, int base) {
         if (crop.getCrop() == null) return 0;
 
         int need = getNeed(crop);
