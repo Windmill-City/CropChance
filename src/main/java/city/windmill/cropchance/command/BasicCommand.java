@@ -38,6 +38,7 @@ public abstract class BasicCommand extends CommandBase {
         return getCommandPrefix();
     }
 
+    @SuppressWarnings("unused")
     public List<String> addTabCompletionOptions(ICommandSender sender, List<String> args) {
         if (args.isEmpty()) return Child.stream()
             .map(it -> it.Name)

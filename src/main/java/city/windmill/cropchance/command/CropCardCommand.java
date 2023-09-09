@@ -32,7 +32,7 @@ public class CropCardCommand extends BasicCommand {
             Arrays.asList(
                 Crops.instance.getCrops()
                     .toArray()),
-            crop -> { formatCropCard(c, (CropCard) crop); });
+            crop -> formatCropCard(c, (CropCard) crop));
         c.build();
     }
 
