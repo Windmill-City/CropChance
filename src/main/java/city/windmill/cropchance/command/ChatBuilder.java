@@ -66,7 +66,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder text(String text) {
-        return text(ChatFormatting.RESET, text);
+        return text(ChatFormatting.WHITE, text);
     }
 
     public ChatBuilder text(ChatFormatting f, String text) {
@@ -76,7 +76,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder textFront(String text) {
-        return textFront(ChatFormatting.RESET, text);
+        return textFront(ChatFormatting.WHITE, text);
     }
 
     public ChatBuilder textFront(ChatFormatting f, String text) {
@@ -128,11 +128,11 @@ public class ChatBuilder {
     public void addPageNav(String cmd, int cur, int max) {
         cmd = cmd + " %d";
 
-        text(ChatFormatting.RESET, String.format("Page: %d/%d (", cur, max));
+        text(ChatFormatting.WHITE, String.format("Page: %d/%d (", cur, max));
         addCommand("Prev", EnumChatFormatting.GREEN, cmd, cur - 1);
-        text(ChatFormatting.RESET, "/");
+        text(ChatFormatting.WHITE, "/");
         addCommand("Next", EnumChatFormatting.GREEN, cmd, cur + 1);
-        text(ChatFormatting.RESET, ")");
+        text(ChatFormatting.WHITE, ")");
     }
 
     public void addTitle(String title) {
@@ -157,7 +157,7 @@ public class ChatBuilder {
 
     public ChatBuilder addAttr(String name, String value) {
         text(ChatFormatting.RESET, " ");
-        text(ChatFormatting.AQUA, name + ": ");
+        text(ChatFormatting.WHITE, name + ": ");
         text(ChatFormatting.YELLOW, value);
         return this;
     }

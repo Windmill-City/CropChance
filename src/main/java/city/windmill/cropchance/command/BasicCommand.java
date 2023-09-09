@@ -154,7 +154,7 @@ public abstract class BasicCommand extends CommandBase {
     public static void msgEx(ICommandSender sender, Exception e) {
         ChatBuilder c = new ChatBuilder(sender);
         if (e instanceof InvalidArgumentException) {
-            c.addTitle("Invalid Argument: %s");
+            c.addTitle("Invalid Argument");
             c.addAttr("Name", ((InvalidArgumentException) e).ArgName)
                 .commit();
             c.addAttr("Invalid Value", ((InvalidArgumentException) e).InvalidVal)

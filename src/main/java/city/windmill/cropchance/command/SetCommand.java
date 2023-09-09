@@ -159,7 +159,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Size set to: %d(%d)",
+                "Crop: %s Size set to: %d (%d)",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -181,7 +181,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s ScanLevel set to: %d(%d)",
+                "Crop: %s ScanLevel set to: %d",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),

@@ -22,38 +22,43 @@ public class ShowCommand extends CropAction {
             .commit();
 
         c.addTitle("Storage");
-        c.addAttr("Water", crop.waterStorage)
-            .commit();
-        c.addAttr("Nutrient", crop.getNutrientStorage())
-            .commit();
+        c.addAttr("Water", crop.waterStorage);
+        c.addAttr("Nutrient", crop.getNutrientStorage());
         c.addAttr("WeedEx", crop.getWeedExStorage())
             .commit();
 
         c.addTitle("Stat");
-        c.addAttr("Growth", crop.getGrowth())
-            .commit();
-        c.addAttr("Gain", crop.getGain())
-            .commit();
-        c.addAttr("Resistance", crop.getResistance())
-            .commit();
+        c.addAttr("Growth", crop.getGrowth());
+        c.addAttr("Gain", crop.getGain());
+        c.addAttr("Resistance", crop.getResistance());
         c.addAttr("Size", crop.getSize())
             .commit();
 
         c.addTitle("Env");
-        c.addAttr("Humidity", crop.getHumidity())
-            .commit();
-        c.addAttr("Nutrient", crop.getNutrients())
-            .commit();
+        c.addAttr("Humidity", crop.getHumidity());
+        c.addAttr("Nutrient", crop.getNutrients());
         c.addAttr("AirQuality", crop.getAirQuality())
             .commit();
 
         c.addTitle("Requirements");
-        c.addAttr("Have", getHave(crop))
+        c.addAttr("Have", getHave(crop));
+        c.addAttr("Need", getNeed(crop));
+        int growRateMin = getGrowRateMin(crop);
+        int growRateMax = getGrowRateMax(crop);
+        c.addAttr("GrowRate", String.format("[%d, %d]", growRateMin, growRateMax))
             .commit();
-        c.addAttr("Need", getNeed(crop))
+
+        int duration = crop.getCrop()
+            .growthDuration(crop);
+        int minTick = duration / growRateMax;
+        int maxTick = duration / growRateMin;
+        c.addAttr("Duration", duration);
+        c.addAttr("Ticks", String.format("[%d, %d]", minTick, maxTick));
+        float minMs = minTick * TileEntityCrop.tickRate / 20f / 60f;
+        float maxMs = maxTick * TileEntityCrop.tickRate / 20f / 60f;
+        c.addAttr("Minutes", String.format("[%.2f, %.2f]", minMs, maxMs))
             .commit();
-        c.addAttr("GrowRate", String.format("[%d, %d]", getGrowRateMin(crop), getGrowRateMax(crop)))
-            .commit();
+
         c.addSeparator();
         c.build();
     }
