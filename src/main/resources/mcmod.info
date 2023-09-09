@@ -1,21 +1,25 @@
 {
-	"modListVersion": 2,
-	"modList": [{
-		"modid": "${modId}",
-		"name": "${modName}",
-		"description": "A mod for debugging IC2 crops",
-		"version": "${modVersion}",
-		"mcversion": "${minecraftVersion}",
-		"url": "https://github.com/Windmill_City",
-		"updateUrl": "",
-		"authorList": ["Windmill_City"],
-		"credits": "",
-		"logoFile": "",
-		"screenshots": [],
-		"parent": "",
-		"requiredMods": [],
-		"dependencies": [],
-		"dependants": [],
-		"useDependencyInformation": true
-	}]
+  "modListVersion": 2,
+  "modList": [
+    {
+      "modid": "${modId}",
+      "name": "${modName}",
+      "description": "A mod for getting IC2 crop related information.",
+      "version": "${modVersion}",
+      "mcversion": "${minecraftVersion}",
+      "url": "https://github.com/Windmill-City/CropChance",
+      "updateUrl": "",
+      "authorList": [
+        "Windmill_City"
+      ],
+      "credits": "",
+      "logoFile": "",
+      "screenshots": [],
+      "parent": "",
+      "requiredMods": [],
+      "dependencies": [],
+      "dependants": [],
+      "useDependencyInformation": true
+    }
+  ]
 }
