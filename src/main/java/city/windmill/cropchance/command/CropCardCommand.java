@@ -32,29 +32,31 @@ public class CropCardCommand extends BasicCommand {
             Arrays.asList(
                 Crops.instance.getCrops()
                     .toArray()),
-            crop -> {
-                String name = I18n.format(((CropCard) crop).displayName());
-                // Crop Name
-                c.addAttr("Name", name)
-                    .commit();
-                // Crop Id
-                c.addAttr("Id", ((CropCard) crop).name());
-                c.addAttr("DiscoveredBy", ((CropCard) crop).discoveredBy())
-                    .commit();
-
-                // Mod Name
-                ModContainer container = FMLCommonHandler.instance()
-                    .findContainerFor(((CropCard) crop).owner());
-                c.addAttr("Owner", ((CropCard) crop).owner());
-                if (container != null) c.addAttr("Name", container.getName());
-                c.commit();
-
-                // Attributes
-                String attrs = String.join(", ", ((CropCard) crop).attributes());
-                c.addAttr("Attr", attrs)
-                    .commit();
-            });
+            crop -> { formatCropCard(c, (CropCard) crop); });
         c.build();
+    }
+
+    public static void formatCropCard(ChatBuilder c, CropCard crop) {
+        String name = I18n.format(crop.displayName());
+        // Crop Name
+        c.addAttr("Name", name)
+            .commit();
+        // Crop Id
+        c.addAttr("Id", crop.name());
+        c.addAttr("DiscoveredBy", crop.discoveredBy())
+            .commit();
+
+        // Mod Name
+        ModContainer container = FMLCommonHandler.instance()
+            .findContainerFor(crop.owner());
+        c.addAttr("Owner", crop.owner());
+        if (container != null) c.addAttr("Name", container.getName());
+        c.commit();
+
+        // Attributes
+        String attrs = String.join(", ", crop.attributes());
+        c.addAttr("Attr", attrs)
+            .commit();
     }
 
 }

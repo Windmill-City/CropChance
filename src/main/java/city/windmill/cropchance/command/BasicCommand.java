@@ -128,15 +128,22 @@ public abstract class BasicCommand extends CommandBase {
     }
 
     public int getPage(List<String> args) {
-        int page = 1;
-        if (args.size() == 1) {
-            try {
-                page = Integer.parseInt(args.get(0));
-            } catch (NumberFormatException ignored) {
-                throw new InvalidArgumentException(this, "page", args.get(0), "Page number, should be Integer");
-            }
+        int page;
+        try {
+            page = getIntegerDefault(args, 1);
+        } catch (NumberFormatException ignored) {
+            throw new InvalidArgumentException(this, "page", args.get(0), "Page number, should be Integer");
         }
         return page;
+    }
+
+    public int getIntegerDefault(List<String> args, int def) {
+        int val = def;
+        if (args.size() == 1) {
+            val = (int) Float.parseFloat(args.get(0));
+            args.remove(0);
+        }
+        return val;
     }
 
     public static void msg(ICommandSender sender, String msg, Object... args) {

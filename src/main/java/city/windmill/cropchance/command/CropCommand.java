@@ -7,6 +7,9 @@ public class CropCommand extends BasicCommand {
         addChild(new InfoCommand());
         addChild(new CropCardCommand());
         addChild(new CrossCommand());
+        addChild(new TickCommand());
+        addChild(new SetCommand());
+        addChild(new ShowCommand());
     }
 
     @Override

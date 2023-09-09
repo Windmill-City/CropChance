@@ -9,6 +9,46 @@ A mod for getting IC2 crop related information.
 
 ## Usage
 
+### Tick
+
+`/crop tick <tick count>` - Tick the target corp for `x` times.
+
+![Tick.png](docs/Tick.png)
+
+There is a bug that the weed only spread to the `z-1` or `x-1`;
+
+```java
+class TileEntityCrop {
+  public void generateWeed() {
+    int x = this.xCoord;
+    int y = this.yCoord;
+    int z = this.zCoord;
+    switch (IC2.random.nextInt(4)) {
+      case 0:
+        ++x;
+        //Missing a break here
+      case 1:
+        --x;
+        //Missing a break here
+      case 2:
+        ++z;
+        //Missing a break here
+      case 3:
+        --z;
+        //Missing a break here
+    }
+  }
+}
+```
+
+### Crop Set
+
+`/crop set <growth | gain | resistance | nutrient | water | weedex | size | scan>`
+
+### Crop Info
+
+`/crop show`
+
 ### Biomes info
 
 `/crop info biome` - Show `Humidity` & `Nutrient` info of current pos.

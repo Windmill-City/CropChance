@@ -157,7 +157,7 @@ public class ChatBuilder {
 
     public ChatBuilder addAttr(String name, String value) {
         text(ChatFormatting.RESET, " ");
-        text(ChatFormatting.DARK_AQUA, name + ": ");
+        text(ChatFormatting.AQUA, name + ": ");
         text(ChatFormatting.YELLOW, value);
         return this;
     }
