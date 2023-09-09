@@ -34,4 +34,9 @@ public class TickCommand extends CropAction {
 
         msg(sender, "Ticked on the target crop for %d times", tick_count);
     }
+
+    @Override
+    public boolean allowNullCrop() {
+        return true;
+    }
 }
