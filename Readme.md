@@ -4,8 +4,8 @@ A mod for getting IC2 crop related information.
 
 ## Dependencies
 
-- industrialcraft-2:2.2.828-experimental(https://jenkins.ic2.player.to/job/IC2_experimental/828/)
-- UniMixins-0.1.11(https://www.curseforge.com/minecraft/mc-mods/unimixins/files/4600285)
+- industrialcraft-2(https://www.curseforge.com/minecraft/mc-mods/industrial-craft)
+- UniMixins(https://www.curseforge.com/minecraft/mc-mods/unimixins)
 
 ## Usage
 
