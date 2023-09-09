@@ -1,8 +1,5 @@
 package city.windmill.cropchance;
 
-import net.minecraftforge.client.ClientCommandHandler;
-
-import city.windmill.cropchance.command.CropCommand;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -17,9 +14,7 @@ public class CommonProxy {
 
     // load "Do your mod setup. Build whatever data structures you care about.
     // Register recipes." (Remove if not needed)
-    public void init(FMLInitializationEvent event) {
-        ClientCommandHandler.instance.registerCommand(new CropCommand());
-    }
+    public void init(FMLInitializationEvent event) {}
 
     // postInit "Handle interaction with other mods, complete your setup based on
     // this." (Remove if not needed)

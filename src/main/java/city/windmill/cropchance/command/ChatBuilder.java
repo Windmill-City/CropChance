@@ -162,7 +162,7 @@ public class ChatBuilder {
         return this;
     }
 
-    public ChatBuilder addAttr(String name, int value) {
+    public ChatBuilder addAttr(String name, long value) {
         return addAttr(name, String.format("%d", value));
     }
 
