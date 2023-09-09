@@ -34,6 +34,6 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
-    api("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
+    api("net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev")
     runtimeOnly('curse.maven:ArchaicFix-677782:4682817')
 }

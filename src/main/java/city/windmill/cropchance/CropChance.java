@@ -15,7 +15,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     version = Tags.VERSION,
     name = Tags.MODNAME,
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:IC2")
+    dependencies = "required-after:IC2",
+    acceptableRemoteVersions = "*")
 public class CropChance {
 
     public static final Logger LOG = LogManager.getLogger(Tags.MODID);
