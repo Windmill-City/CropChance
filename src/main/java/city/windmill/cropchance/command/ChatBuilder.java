@@ -11,7 +11,7 @@ import net.minecraft.util.*;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "UnusedReturnValue" })
 public class ChatBuilder {
 
     public final int LineMax = 20;
@@ -65,23 +65,23 @@ public class ChatBuilder {
         CharNum = 0;
     }
 
-    public ChatBuilder text(String text) {
-        return text(ChatFormatting.WHITE, text);
+    public ChatBuilder text(String text, Object... args) {
+        return text(ChatFormatting.WHITE, text, args);
     }
 
-    public ChatBuilder text(ChatFormatting f, String text) {
-        Line.addLast(new ChatComponentText(f + text));
+    public ChatBuilder text(ChatFormatting f, String text, Object... args) {
+        Line.addLast(new ChatComponentText(f + String.format(text, args)));
         CharNum += text.length();
         return this;
     }
 
-    public ChatBuilder textFront(String text) {
-        return textFront(ChatFormatting.WHITE, text);
+    public ChatBuilder textFront(String text, Object args) {
+        return textFront(ChatFormatting.WHITE, text, args);
     }
 
-    public ChatBuilder textFront(ChatFormatting f, String text) {
+    public ChatBuilder textFront(ChatFormatting f, String text, Object... args) {
         CharNum += text.length();
-        Line.addFirst(new ChatComponentText(f + text));
+        Line.addFirst(new ChatComponentText(f + String.format(text, args)));
         return this;
     }
 
@@ -128,7 +128,7 @@ public class ChatBuilder {
     public void addPageNav(String cmd, int cur, int max) {
         cmd = cmd + " %d";
 
-        text(ChatFormatting.WHITE, String.format("Page: %d/%d (", cur, max));
+        text(ChatFormatting.WHITE, "Page: %d/%d (", cur, max);
         addCommand("Prev", EnumChatFormatting.GREEN, cmd, cur - 1);
         text(ChatFormatting.WHITE, "/");
         addCommand("Next", EnumChatFormatting.GREEN, cmd, cur + 1);
@@ -155,23 +155,27 @@ public class ChatBuilder {
         text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
     }
 
-    public ChatBuilder addAttr(String name, String value) {
+    public ChatBuilder addAttr(String name, String value, Object... args) {
         text(ChatFormatting.RESET, " ");
-        text(ChatFormatting.WHITE, name + ": ");
-        text(ChatFormatting.YELLOW, value);
+        text(ChatFormatting.DARK_AQUA, name + ": ");
+        text(ChatFormatting.YELLOW, value, args);
         return this;
     }
 
     public ChatBuilder addAttr(String name, long value) {
-        return addAttr(name, String.format("%d", value));
-    }
-
-    public ChatBuilder addAttr(String name, float value) {
-        return addAttr(name, String.format("%.02f", value));
+        return addAttr(name, "%d", value);
     }
 
     public ChatBuilder addAttr(String name, double value) {
-        return addAttr(name, String.format("%.02f", value));
+        return addAttr(name, "%.02f", value);
+    }
+
+    public ChatBuilder addAttrRange(String name, long min, long max) {
+        return addAttr(name, "[%d, %d] (%d)", min, max, (min + max) / 2);
+    }
+
+    public ChatBuilder addAttrRange(String name, double min, double max) {
+        return addAttr(name, "[%.2f, %.2f] (%.2f)", min, max, (min + max) / 2);
     }
 
     public void addCommand(String name, EnumChatFormatting color, String cmd, Object... args) {

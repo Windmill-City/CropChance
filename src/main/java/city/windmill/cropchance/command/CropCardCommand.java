@@ -53,13 +53,13 @@ public class CropCardCommand extends BasicCommand {
         if (container != null) c.addAttr("Name", container.getName());
         c.commit();
 
-        // MaxSize
-        c.addAttr("MaxSize", crop.maxSize())
-            .commit();
-
         // Attributes
         String attrs = String.join(", ", crop.attributes());
         c.addAttr("Attr", attrs)
+            .commit();
+
+        // MaxSize
+        c.addAttr("MaxSize", crop.maxSize())
             .commit();
     }
 

@@ -30,7 +30,9 @@ public class ShowCommand extends CropAction {
         c.addTitle("Stat");
         c.addAttr("Growth", crop.getGrowth());
         c.addAttr("Gain", crop.getGain());
-        c.addAttr("Resistance", crop.getResistance());
+        c.addAttr("Resistance", crop.getResistance())
+            .commit();
+        c.addAttr("Growth Points", crop.growthPoints);
         c.addAttr("Size", crop.getSize())
             .commit();
 
@@ -45,18 +47,32 @@ public class ShowCommand extends CropAction {
         c.addAttr("Need", getNeed(crop));
         int growRateMin = getGrowRateMin(crop);
         int growRateMax = getGrowRateMax(crop);
-        c.addAttr("GrowRate", String.format("[%d, %d]", growRateMin, growRateMax))
+        int growRateAvg = (growRateMin + growRateMax) / 2;
+        c.addAttr("GrowRate", "[%d, %d] (%d)", growRateMin, growRateMax, growRateAvg)
             .commit();
 
         int duration = crop.getCrop()
             .growthDuration(crop);
         int minTick = duration / growRateMax;
         int maxTick = duration / growRateMin;
-        c.addAttr("Duration", duration);
-        c.addAttr("Ticks", String.format("[%d, %d]", minTick, maxTick));
         float minMs = minTick * TileEntityCrop.tickRate / 20f / 60f;
         float maxMs = maxTick * TileEntityCrop.tickRate / 20f / 60f;
-        c.addAttr("Minutes", String.format("[%.2f, %.2f]", minMs, maxMs))
+
+        c.addAttr("Duration (Stage)", duration);
+        c.addAttrRange("Ticks", minTick, maxTick);
+        c.addAttrRange("Minutes", minMs, maxMs)
+            .commit();
+
+        int stage = crop.getCrop()
+            .maxSize() - 1;
+        int durationFull = duration * stage;
+        int minTickFull = minTick * stage;
+        int maxTickFull = maxTick * stage;
+        float minMsFull = minMs * stage;
+        float maxMsFull = maxMs * stage;
+        c.addAttr("Duration (Full)", durationFull);
+        c.addAttrRange("Ticks", minTickFull, maxTickFull);
+        c.addAttrRange("Minutes", minMsFull, maxMsFull)
             .commit();
 
         c.addSeparator();

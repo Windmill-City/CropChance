@@ -49,6 +49,8 @@ class TileEntityCrop {
 
 `/crop show`
 
+![ShowInfo.png](docs/ShowInfo.png)
+
 ### Biomes info
 
 `/crop info biome` - Show `Humidity` & `Nutrient` info of current pos.
