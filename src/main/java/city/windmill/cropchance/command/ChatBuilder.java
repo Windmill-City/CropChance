@@ -154,7 +154,8 @@ public class ChatBuilder {
     public void addPadding() {
         int padding = Padding_X - CharNum;
         textFront(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
-        text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
+        padding = Padding_X - CharNum;
+        text(ChatFormatting.GOLD, " " + repeat("-", padding));
     }
 
     public ChatBuilder addAttr(String name, String value, Object... args) {
