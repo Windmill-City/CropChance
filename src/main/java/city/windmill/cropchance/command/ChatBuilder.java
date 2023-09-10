@@ -70,7 +70,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder text(ChatFormatting f, String text, Object... args) {
-        Line.addLast(new ChatComponentText(f + String.format(text, args)));
+        Line.addLast(new ChatComponentText(f + text));
         CharNum += text.length();
         return this;
     }
@@ -80,8 +80,9 @@ public class ChatBuilder {
     }
 
     public ChatBuilder textFront(ChatFormatting f, String text, Object... args) {
-        CharNum += text.length();
+        text = String.format(text, args);
         Line.addFirst(new ChatComponentText(f + String.format(text, args)));
+        CharNum += text.length();
         return this;
     }
 
