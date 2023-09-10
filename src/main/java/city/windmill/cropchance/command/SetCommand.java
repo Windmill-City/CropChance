@@ -30,7 +30,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setGrowth((byte) getIntegerDefault(args, 0));
+            crop.setGrowth((byte) MathHelper.clamp_int(getIntegerDefault(args, 0), 0, 127));
             crop.updateState();
             msg(
                 sender,
@@ -50,7 +50,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setGain((byte) getIntegerDefault(args, 0));
+            crop.setGain((byte) MathHelper.clamp_int(getIntegerDefault(args, 0), 0, 127));
             crop.updateState();
             msg(
                 sender,
@@ -70,7 +70,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setResistance((byte) getIntegerDefault(args, 0));
+            crop.setResistance((byte) MathHelper.clamp_int(getIntegerDefault(args, 0), 0, 127));
             crop.updateState();
             msg(
                 sender,
@@ -90,7 +90,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setNutrientStorage(getIntegerDefault(args, 0));
+            crop.setNutrientStorage(Math.max(getIntegerDefault(args, 200), 0));
             crop.updateState();
             msg(
                 sender,
@@ -110,7 +110,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.waterStorage = getIntegerDefault(args, 0);
+            crop.waterStorage = Math.max(getIntegerDefault(args, 200), 0);
             crop.updateState();
             msg(
                 sender,
@@ -130,7 +130,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setWeedExStorage(getIntegerDefault(args, 0));
+            crop.setWeedExStorage(Math.max(getIntegerDefault(args, 150), 0));
             crop.updateState();
             msg(
                 sender,
@@ -177,7 +177,7 @@ public class SetCommand extends BasicCommand {
 
         @Override
         public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
-            crop.setScanLevel((byte) Math.max(getIntegerDefault(args, 1), 1));
+            crop.setScanLevel((byte) MathHelper.clamp_int(getIntegerDefault(args, 1), 0, 127));
             crop.updateState();
             msg(
                 sender,
