@@ -70,6 +70,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder text(ChatFormatting f, String text, Object... args) {
+        text = String.format(text, args);
         Line.addLast(new ChatComponentText(f + text));
         CharNum += text.length();
         return this;
