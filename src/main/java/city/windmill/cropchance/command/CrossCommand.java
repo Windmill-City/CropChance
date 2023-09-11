@@ -120,10 +120,8 @@ public class CrossCommand extends BasicCommand {
                     CropChance.LOG.info("Cross simulate end!");
 
                     formatResult(sender);
-                } catch (IllegalArgumentException e) {
-                    msg(sender, e.getMessage());
                 } catch (Exception e) {
-                    CropChance.LOG.error("Exception throw during crossing", e);
+                    CropChance.LOG.error("Exception thrown during crossing", e);
                     msgEx(sender, e);
                 }
             });
@@ -148,12 +146,12 @@ public class CrossCommand extends BasicCommand {
 
             c.addAttr("Weed", Weeded);
             c.addAttr("Percent", 100f * Weeded / TryCross)
-                .text("%")
+                .text("%%")
                 .commit();
 
             c.addAttr("Cross", Crossed);
             c.addAttr("Percent", 100f * Crossed / TryCross)
-                .text("%")
+                .text("%%")
                 .commit();
             c.addSeparator();
             c.build();
