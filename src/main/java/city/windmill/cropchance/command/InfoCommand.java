@@ -53,9 +53,11 @@ public class InfoCommand extends BasicCommand {
                     .map(Enum::name)
                     .collect(Collectors.joining(", ")))
                 .commit();
-            c.addAttr("Humidity", Crops.instance.getHumidityBiomeBonus(biome))
-                .commit();
-            c.addAttr("Nutrient", Crops.instance.getNutrientBiomeBonus(biome))
+            int humidity = Crops.instance.getHumidityBiomeBonus(biome);
+            int nutrient = Crops.instance.getNutrientBiomeBonus(biome);
+            c.addAttr("Humidity", humidity);
+            c.addAttr("Nutrient", nutrient);
+            c.addAttr("Sum", humidity + nutrient)
                 .commit();
         }
 
@@ -76,6 +78,15 @@ public class InfoCommand extends BasicCommand {
         public void processCommand(ICommandSender sender, List<String> args) {
             List<BiomeGenBase> biomes = Arrays.stream(BiomeGenBase.getBiomeGenArray())
                 .filter(Objects::nonNull)
+                .sorted((l, r) -> {
+                    int humidity_l = Crops.instance.getHumidityBiomeBonus(l);
+                    int nutrient_l = Crops.instance.getNutrientBiomeBonus(l);
+                    int sum_l = humidity_l + nutrient_l;
+                    int humidity_r = Crops.instance.getHumidityBiomeBonus(r);
+                    int nutrient_r = Crops.instance.getNutrientBiomeBonus(r);
+                    int sum_r = humidity_r + nutrient_r;
+                    return sum_r - sum_l;
+                })
                 .collect(Collectors.toList());
 
             ChatBuilder c = new ChatBuilder(sender);
@@ -103,14 +114,31 @@ public class InfoCommand extends BasicCommand {
         @Override
         public void processCommand(ICommandSender sender, List<String> args) {
             ChatBuilder c = new ChatBuilder(sender);
-            c.addPage("Biome Types", getCommandPrefix(), getPage(args), getBiomeTypeKeys(), key -> {
-                c.addAttr("Name", key.name())
-                    .commit();
-                c.addAttr("Humidity", getHumidity(key))
-                    .commit();
-                c.addAttr("Nutrient", getNutrient(key))
-                    .commit();
-            });
+            c.addPage(
+                "Biome Types",
+                getCommandPrefix(),
+                getPage(args),
+                getBiomeTypeKeys().stream()
+                    .sorted((l, r) -> {
+                        int humidity_l = getHumidity(l);
+                        int nutrient_l = getNutrient(l);
+                        int sum_l = humidity_l + nutrient_l;
+                        int humidity_r = getHumidity(r);
+                        int nutrient_r = getNutrient(r);
+                        int sum_r = humidity_r + nutrient_r;
+                        return sum_r - sum_l;
+                    })
+                    .collect(Collectors.toList()),
+                key -> {
+                    c.addAttr("Name", key.name())
+                        .commit();
+                    int humidity = getHumidity(key);
+                    int nutrient = getNutrient(key);
+                    c.addAttr("Humidity", humidity);
+                    c.addAttr("Nutrient", nutrient);
+                    c.addAttr("Sum", humidity + nutrient)
+                        .commit();
+                });
             c.build();
         }
 
