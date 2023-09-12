@@ -173,6 +173,10 @@ public class ChatBuilder {
         return addAttr(name, "%.02f", value);
     }
 
+    public ChatBuilder addAttr(String name, boolean val) {
+        return addAttr(name, val ? "true" : "false");
+    }
+
     public ChatBuilder addAttrRange(String name, long min, long max) {
         return addAttr(name, "[%d, %d] (%d)", min, max, (min + max) / 2);
     }

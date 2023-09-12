@@ -36,7 +36,7 @@ public class TickCommand extends CropAction {
     }
 
     @Override
-    public boolean allowNullCrop() {
+    public boolean checkCrop(ICommandSender sender, TileEntityCrop crop) {
         return true;
     }
 }

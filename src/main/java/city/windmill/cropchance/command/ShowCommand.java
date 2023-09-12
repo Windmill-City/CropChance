@@ -20,7 +20,11 @@ public class ShowCommand extends CropAction {
 
         c.addTitle("Crop Info");
         CropCardCommand.formatCropCard(c, crop.getCrop());
-        c.addAttr("Scan Level", crop.getScanLevel())
+        c.addAttr("Scan Level", crop.getScanLevel());
+        c.addAttr(
+            "CanCross",
+            crop.getCrop()
+                .canCross(crop))
             .commit();
 
         c.addTitle("Storage");

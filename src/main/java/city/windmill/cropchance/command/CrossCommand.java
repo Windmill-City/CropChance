@@ -44,7 +44,7 @@ public class CrossCommand extends BasicCommand {
                 if (args.size() >= 4 && (args.get(3)
                     .equals("quiet")
                     || args.get(3)
-                    .equals("q")))
+                        .equals("q")))
                     trier.Quiet = true;
                 if (args.size() >= 4 && args.get(3)
                     .equals("nodummy")) trier.Dummy = false;

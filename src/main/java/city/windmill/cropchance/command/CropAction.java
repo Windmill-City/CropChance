@@ -25,11 +25,7 @@ public abstract class CropAction extends BasicCommand {
                 .getTileEntity(objHit.blockX, objHit.blockY, objHit.blockZ);
             if (e instanceof TileEntityCrop) {
                 TileEntityCrop crop = (TileEntityCrop) e;
-                if (!allowNullCrop() && crop.getCrop() == null) {
-                    msg(sender, "No crop on it!");
-                    return;
-                }
-                doAction(crop, sender, args);
+                if (checkCrop(sender, crop)) doAction(crop, sender, args);
                 return;
             }
         }
@@ -38,7 +34,11 @@ public abstract class CropAction extends BasicCommand {
 
     public abstract void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args);
 
-    public boolean allowNullCrop() {
-        return false;
+    public boolean checkCrop(ICommandSender sender, TileEntityCrop crop) {
+        if (crop.getCrop() == null) {
+            msg(sender, "No crop on it!");
+            return false;
+        }
+        return true;
     }
 }
