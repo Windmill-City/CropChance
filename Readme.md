@@ -104,6 +104,14 @@ Use this command to view information of all crop-cards.
 
 ![CropCard.png](docs/CropCard.png)
 
+### Crop Chance
+
+`/crop chance <try>`
+
+Use this command to try to do crossbreeding on your targeted hybrid frame.
+
+![Chance.png](docs/Chance.png)
+
 ### Cross Chance info
 
 `/crop cross <try> <growth> <surround>`

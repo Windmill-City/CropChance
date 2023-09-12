@@ -100,6 +100,14 @@ class TileEntityCrop {
 
 ![CropCard.png](docs/CropCard.png)
 
+### Crop Chance
+
+`/crop chance <try>`
+
+使用这个命令对指向的杂交架进行杂交测试。
+
+![Chance.png](docs/Chance.png)
+
 ### Cross Chance info
 
 `/crop cross <try> <growth> <surround>`

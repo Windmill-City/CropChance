@@ -78,6 +78,14 @@ Use this command to view information of all crop-cards.
 
 ![CropCard.png](https://github.com/Windmill-City/CropChance/blob/main/docs/CropCard.png?raw=true)
 
+### Crop Chance
+
+`/crop chance <try>`
+
+Use this command to try to do crossbreeding on your targeted hybrid frame.
+
+![Chance.png](https://github.com/Windmill-City/CropChance/blob/main/docs/Chance.png?raw=true)
+
 ### Cross Chance info
 
 `/crop cross [try] [growth] [surround]`
