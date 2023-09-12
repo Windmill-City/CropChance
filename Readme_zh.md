@@ -108,6 +108,8 @@ class TileEntityCrop {
 
 ![Chance.png](docs/Chance.png)
 
+这个命令直接在当前的世界中进行模拟，返回你所指向的杂交架，其能够杂交出的产物以及几率。
+
 ### Cross Chance info
 
 `/crop cross <try> <growth> <surround>`

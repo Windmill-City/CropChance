@@ -112,6 +112,9 @@ Use this command to try to do crossbreeding on your targeted hybrid frame.
 
 ![Chance.png](docs/Chance.png)
 
+This command directly simulates in the current world, returning the hybrid rack you are pointing to, the products that
+can be hybridized, and the probability.
+
 ### Cross Chance info
 
 `/crop cross <try> <growth> <surround>`
