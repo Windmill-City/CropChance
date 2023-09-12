@@ -1,11 +1,13 @@
 package city.windmill.cropchance.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 import city.windmill.cropchance.CropChance;
@@ -39,11 +41,13 @@ public class CrossCommand extends BasicCommand {
 
                 trier = new CrossTry(IC2Crops.cropReed, growth, surround, tryCross);
 
-                if (args.size() == 4 && (args.get(3)
+                if (args.size() >= 4 && (args.get(3)
                     .equals("quiet")
                     || args.get(3)
-                        .equals("q")))
+                    .equals("q")))
                     trier.Quiet = true;
+                if (args.size() >= 4 && args.get(3)
+                    .equals("nodummy")) trier.Dummy = false;
 
                 trier.runCross(sender);
             } catch (NumberFormatException e) {
@@ -54,7 +58,7 @@ public class CrossCommand extends BasicCommand {
 
     @Override
     public String getHelp() {
-        return getCommandPrefix() + " <<try> <growth> <surround> [quiet | q]>> | <stop>";
+        return getCommandPrefix() + " <<try> <growth> <surround> [quiet | q] [nodummy]>> | <stop>";
     }
 
     public static class CrossTry {
@@ -69,6 +73,7 @@ public class CrossCommand extends BasicCommand {
         int Weeded = 0;
 
         boolean Quiet = false;
+        boolean Dummy = true;
         boolean Running = false;
 
         CrossTry(CropCard parent, int growth, int surround, long tryCross) {
@@ -78,16 +83,18 @@ public class CrossCommand extends BasicCommand {
             TryCross = tryCross;
         }
 
-        public TileEntityCrop buildTryEnv() {
-            DummyWorld world = new DummyWorld();
+        public List<TileEntityCrop> buildTryEnv(World world, ChunkCoordinates at) {
+            if (at.posY < 1) at = new ChunkCoordinates(at.posX, 1, at.posZ);
 
+            // Water
+            world.setBlock(at.posX - 1, at.posY - 1, at.posZ - 1, Blocks.water);
             switch (Surround) {
                 case 2:
-                    return placeCropPair(world, 0, 0, 0);
+                    return placeCropPair(world, at.posX, at.posY - 1, at.posZ);
                 case 3:
-                    return placeCropTri(world, 0, 0, 0);
+                    return placeCropTri(world, at.posX, at.posY - 1, at.posZ);
                 case 4:
-                    return placeCropQuad(world, 0, 0, 0);
+                    return placeCropQuad(world, at.posX, at.posY - 1, at.posZ);
                 default:
                     throw new IllegalArgumentException("Surround valid values are: 2, 3, 4.");
             }
@@ -100,14 +107,18 @@ public class CrossCommand extends BasicCommand {
                     CropChance.LOG.info("Cross simulate start with param: " + this);
                     msg(sender, "Cross simulate start...");
 
-                    TileEntityCrop c = buildTryEnv();
+                    World world = Dummy ? new DummyWorld() : sender.getEntityWorld();
+                    ChunkCoordinates at = sender.getPlayerCoordinates();
+
+                    List<TileEntityCrop> crops = buildTryEnv(world, at);
+                    TileEntityCrop center = crops.get(0);
                     CropChance.LOG.info("Built up cross environment");
 
                     while (Tried < TryCross && Running) {
-                        resetCrop(c);
-                        c.tick();
-                        if (isWeed(c)) Weeded++;
-                        if (isCross(c)) Crossed++;
+                        resetCrops(crops);
+                        center.tick();
+                        if (isWeed(center)) Weeded++;
+                        if (isCross(center)) Crossed++;
                         Tried++;
 
                         // Report progress if Try is large
@@ -169,43 +180,57 @@ public class CrossCommand extends BasicCommand {
         }
 
         public void setupParent(TileEntityCrop crop) {
+            crop.reset();
             crop.setCrop(IC2Crops.cropReed);
             // Make canCross() return true
             crop.size = IC2Crops.cropReed.maxSize();
             crop.statGrowth = Growth;
         }
 
-        public TileEntityCrop placeCropPair(World world, int x, int y, int z) {
-            // Left
-            setupParent(placeCrop(world, x, y, z + 1));
-            // Right
-            setupParent(placeCrop(world, x, y, z - 1));
+        public List<TileEntityCrop> placeCropPair(World world, int x, int y, int z) {
+            // Clean
+            world.setBlockToAir(x + 1, y + 1, z);
+            world.setBlockToAir(x - 1, y + 1, z);
+
+            List<TileEntityCrop> te = new ArrayList<>(3);
             // Center
-            return placeCrop(world, x, y, z);
+            te.add(placeCrop(world, x, y, z));
+            // Left
+            te.add(placeCrop(world, x, y, z + 1));
+            // Right
+            te.add(placeCrop(world, x, y, z - 1));
+            return te;
         }
 
-        public TileEntityCrop placeCropTri(World world, int x, int y, int z) {
-            // Front
-            setupParent(placeCrop(world, x + 1, y, z));
-            // Left
-            setupParent(placeCrop(world, x, y, z + 1));
-            // Right
-            setupParent(placeCrop(world, x, y, z - 1));
+        public List<TileEntityCrop> placeCropTri(World world, int x, int y, int z) {
+            // Clean
+            world.setBlockToAir(x - 1, y + 1, z);
+
+            List<TileEntityCrop> te = new ArrayList<>(4);
             // Center
-            return placeCrop(world, x, y, z);
+            te.add(placeCrop(world, x, y, z));
+            // Front
+            te.add(placeCrop(world, x + 1, y, z));
+            // Left
+            te.add(placeCrop(world, x, y, z + 1));
+            // Right
+            te.add(placeCrop(world, x, y, z - 1));
+            return te;
         }
 
-        public TileEntityCrop placeCropQuad(World world, int x, int y, int z) {
+        public List<TileEntityCrop> placeCropQuad(World world, int x, int y, int z) {
+            List<TileEntityCrop> te = new ArrayList<>(5);
+            // Center
+            te.add(placeCrop(world, x, y, z));
             // Front
-            setupParent(placeCrop(world, x + 1, y, z));
+            te.add(placeCrop(world, x + 1, y, z));
             // Back
-            setupParent(placeCrop(world, x - 1, y, z));
+            te.add(placeCrop(world, x - 1, y, z));
             // Left
-            setupParent(placeCrop(world, x, y, z + 1));
+            te.add(placeCrop(world, x, y, z + 1));
             // Right
-            setupParent(placeCrop(world, x, y, z - 1));
-            // Center
-            return placeCrop(world, x, y, z);
+            te.add(placeCrop(world, x, y, z - 1));
+            return te;
         }
 
         public boolean isWeed(TileEntityCrop crop) {
@@ -216,9 +241,13 @@ public class CrossCommand extends BasicCommand {
             return crop.getCrop() != null && !isWeed(crop);
         }
 
-        public void resetCrop(TileEntityCrop crop) {
-            crop.reset();
-            crop.upgraded = true;
+        public void resetCrops(List<TileEntityCrop> crops) {
+            // Reset Center
+            crops.get(0)
+                .reset();
+            crops.get(0).upgraded = true;
+            // Reset Parent
+            for (int i = 1; i < crops.size(); i++) setupParent(crops.get(i));
         }
 
         public void stop() {
