@@ -10,6 +10,7 @@ public class CropCommand extends BasicCommand {
         addChild(new TickCommand());
         addChild(new SetCommand());
         addChild(new ShowCommand());
+        addChild(new ChanceCommand());
     }
 
     @Override
