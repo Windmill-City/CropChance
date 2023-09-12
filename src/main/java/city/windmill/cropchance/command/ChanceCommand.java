@@ -109,6 +109,9 @@ public class ChanceCommand extends CropAction {
                 .commit();
             c.addSeparator();
             c.build();
+
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException(this, "try", args.get(0), "try times should be number");
         } catch (IllegalAccessException e) {
             CropChance.LOG.error("Exception thrown during cross chance:", e);
             msgEx(sender, e);
