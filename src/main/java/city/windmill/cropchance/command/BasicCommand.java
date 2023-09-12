@@ -170,9 +170,9 @@ public abstract class BasicCommand extends CommandBase {
         } else {
             c.addTitle("Error");
             c.addAttr(
-                    "Exception",
-                    e.getClass()
-                        .toString())
+                "Exception",
+                e.getClass()
+                    .toString())
                 .commit();
             if (e.getMessage() != null) c.addAttr("Message", e.getMessage())
                 .commit();
