@@ -92,6 +92,7 @@ public class DummyWorld extends World {
         }
     }
 
+    @SuppressWarnings("rawtypes")
     private static class DummyChunkProvider implements IChunkProvider {
 
         public final World world;
