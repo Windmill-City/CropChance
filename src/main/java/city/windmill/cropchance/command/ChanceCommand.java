@@ -77,13 +77,13 @@ public class ChanceCommand extends CropAction {
                 .stream()
                 .sorted((l, r) -> l.getValue() - r.getValue())
                 .collect(Collectors.toList())) {
-                //Crop
+                // Crop
                 CropCard card = entry.getKey();
                 c.addAttr("Name", I18n.format(card.displayName()));
                 c.addAttr("Id", card.name())
                     .commit();
 
-                //Chance
+                // Chance
                 Integer appear = entry.getValue();
                 c.addAttr("Chance", appear)
                     .text(" (%.2f %%)", 100f * appear / Cross)
@@ -91,7 +91,7 @@ public class ChanceCommand extends CropAction {
                 c.addSeparator();
             }
 
-            //General
+            // General
             c.addAttr("Tried", tryCross)
                 .commit();
             c.addAttr("Weed", Weed)
