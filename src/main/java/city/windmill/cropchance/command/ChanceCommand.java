@@ -81,7 +81,8 @@ public class ChanceCommand extends CropAction {
                 // Crop
                 CropCard card = entry.getKey();
                 c.addAttr("Name", I18n.format(card.displayName()));
-                c.addAttr("Id", card.name())
+                c.addAttr("Id", card.name());
+                c.addAttr("Tier", card.tier())
                     .commit();
 
                 // Chance

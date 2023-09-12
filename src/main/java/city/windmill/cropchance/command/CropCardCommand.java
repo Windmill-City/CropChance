@@ -39,7 +39,8 @@ public class CropCardCommand extends BasicCommand {
     public static void formatCropCard(ChatBuilder c, CropCard crop) {
         String name = I18n.format(crop.displayName());
         // Crop Name
-        c.addAttr("Name", name)
+        c.addAttr("Name", name);
+        c.addAttr("Tier", crop.tier())
             .commit();
         // Crop Id
         c.addAttr("Id", crop.name());
