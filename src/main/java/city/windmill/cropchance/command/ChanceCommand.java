@@ -29,9 +29,14 @@ public class ChanceCommand extends CropAction {
     }
 
     @Override
+    public String getHelp() {
+        return getCommandPrefix() + " <try>";
+    }
+
+    @Override
     public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
         try {
-            int tryCross = getIntegerDefault(args, 1);
+            int tryCross = getIntegerDefault(args, 1000);
 
             msg(sender, "Chance test begin...");
 
