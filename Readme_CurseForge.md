@@ -80,7 +80,7 @@ Use this command to view information of all crop-cards.
 
 ### Crop Chance
 
-`/crop chance <try>`
+`/crop chance [try]`
 
 Use this command to try to do crossbreeding on your targeted hybrid frame.
 
