@@ -2,6 +2,7 @@ package city.windmill.cropchance.command;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class ChanceCommand extends CropAction {
 
             for (Map.Entry<CropCard, Integer> entry : Result.entrySet()
                 .stream()
-                .sorted((l, r) -> l.getValue() - r.getValue())
+                .sorted(Comparator.comparingInt(Map.Entry::getValue))
                 .collect(Collectors.toList())) {
                 // Crop
                 CropCard card = entry.getKey();
