@@ -12,7 +12,7 @@ import net.minecraft.util.*;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-@SuppressWarnings({"unused", "UnusedReturnValue"})
+@SuppressWarnings({ "unused", "UnusedReturnValue" })
 public class ChatBuilder {
 
     public final int LineMax = 20;

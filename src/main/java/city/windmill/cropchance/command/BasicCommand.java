@@ -172,9 +172,9 @@ public abstract class BasicCommand extends CommandBase {
         } else {
             c.addTitle("cropchance.ui.msgEx.title.error");
             c.addAttr(
-                    "cropchance.ui.msgEx.attr.exception",
-                    e.getClass()
-                        .toString())
+                "cropchance.ui.msgEx.attr.exception",
+                e.getClass()
+                    .toString())
                 .commit();
             if (e.getMessage() != null) c.addAttr("cropchance.ui.msgEx.attr.message", e.getMessage())
                 .commit();

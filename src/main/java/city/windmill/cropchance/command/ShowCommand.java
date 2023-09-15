@@ -22,9 +22,9 @@ public class ShowCommand extends CropAction {
         CropCardCommand.formatCropCard(c, crop.getCrop());
         c.addAttr("cropchance.ui.attr.scan", crop.getScanLevel());
         c.addAttr(
-                "cropchance.ui.attr.can-cross",
-                crop.getCrop()
-                    .canCross(crop))
+            "cropchance.ui.attr.can-cross",
+            crop.getCrop()
+                .canCross(crop))
             .commit();
 
         c.addTitle("cropchance.cmd.show.storage");

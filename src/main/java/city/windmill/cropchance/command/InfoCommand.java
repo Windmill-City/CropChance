@@ -48,10 +48,10 @@ public class InfoCommand extends BasicCommand {
             c.addAttr("cropchance.ui.attr.id", biome.biomeID)
                 .commit();
             c.addAttr(
-                    "cropchance.ui.attr.type",
-                    Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
-                        .map(Enum::name)
-                        .collect(Collectors.joining(", ")))
+                "cropchance.ui.attr.type",
+                Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
+                    .map(Enum::name)
+                    .collect(Collectors.joining(", ")))
                 .commit();
             int humidity = Crops.instance.getHumidityBiomeBonus(biome);
             int nutrient = Crops.instance.getNutrientBiomeBonus(biome);
