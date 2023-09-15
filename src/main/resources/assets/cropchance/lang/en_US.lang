@@ -1,0 +1,84 @@
+cropchance.ui.page.name=Page: 
+cropchance.ui.page.prev=Prev
+cropchance.ui.page.next=Next
+cropchance.ui.page.num=Page number, should be Integer
+
+cropchance.ui.msgEx.title.invalid-arg=Invalid Argument
+cropchance.ui.msgEx.invalid-arg.val=Invalid Value
+cropchance.ui.msgEx.title.error=Error
+cropchance.ui.msgEx.attr.exception=Exception
+cropchance.ui.msgEx.attr.message=Message
+cropchance.ui.msgEx.attr.stacktrace=StackTrace
+
+cropchance.ui.attr.name=Name
+cropchance.ui.attr.desc=Desc
+cropchance.ui.attr.id=Id
+cropchance.ui.attr.tier=Tier
+cropchance.ui.attr.chance=Chance
+cropchance.ui.attr.tried=Tried
+cropchance.ui.attr.weed=Weed
+cropchance.ui.attr.cross=Cross
+cropchance.ui.attr.discover-by=DiscoverBy
+cropchance.ui.attr.owner=Owner
+cropchance.ui.attr.attr=Attr
+cropchance.ui.attr.growth=Growth
+cropchance.ui.attr.resistance=Resistance
+cropchance.ui.attr.gain=Gain
+cropchance.ui.attr.surround=Surround
+cropchance.ui.attr.type=Type
+cropchance.ui.attr.humidity=Humidity
+cropchance.ui.attr.nutrient=Nutrient
+cropchance.ui.attr.air=AirQuality
+cropchance.ui.attr.water=Water
+cropchance.ui.attr.ex=WeedEx
+cropchance.ui.attr.sum=Sum
+cropchance.ui.attr.size=Size
+cropchance.ui.attr.have=Have
+cropchance.ui.attr.need=Need
+cropchance.ui.attr.growth-rate=GrowthRate
+cropchance.ui.attr.scan=ScanLevel
+cropchance.ui.attr.can-cross=CanCross
+cropchance.ui.attr.growth-points=Growth Points
+cropchance.ui.attr.duration-stage=Duration(Stage)
+cropchance.ui.attr.duration-full=Duration(Full)
+
+cropchance.ui.attr.in-tick=Tick
+cropchance.ui.attr.in-second=in second
+cropchance.ui.attr.in-minute=in minute
+
+
+cropchance.cmd.chance.ui.begin=Chance test begin...
+cropchance.cmd.chance.ui.end=Chance test end!
+cropchance.cmd.chance.ui.title=Chance
+cropchance.cmd.chance.ui.not-hybrid-frame=Not a hybrid frame!
+
+cropchance.cmd.cross.ui.begin=Cross simulate begin...
+cropchance.cmd.cross.ui.end=Cross simulate end!
+cropchance.cmd.cross.ui.title=Result
+
+cropchance.cmd.cropcard.title=CropCard
+
+cropchance.cmd.info.biome.title=Biome Info
+cropchance.cmd.info.biomes.title=Biomes Info
+cropchance.cmd.info.types.title=Biome Types Info
+cropchance.cmd.info.tickrate.title=Crop TickRate Info
+
+cropchance.cmd.set.growth=Crop: %s Growth set to: %d
+cropchance.cmd.set.gain=Crop: %s Gain set to: %d
+cropchance.cmd.set.resistance=Crop: %s Resistance set to: %d
+cropchance.cmd.set.nutrient=Crop: %s Nutrient set to: %d
+cropchance.cmd.set.water=Crop: %s Water set to: %d
+cropchance.cmd.set.ex=Crop: %s WeedEx set to: %d
+cropchance.cmd.set.size=Crop: %s Size set to: %d (%d)
+cropchance.cmd.set.scan=Crop: %s ScanLevel set to: %d
+
+cropchance.cmd.show.title=Crop Info
+cropchance.cmd.show.storage=Storage
+cropchance.cmd.show.stat=Stat
+cropchance.cmd.show.env=Env
+cropchance.cmd.show.requirements=Requirements
+
+cropchance.cmd.tick=Ticked on the target crop for %d times
+
+cropchance.cmd.crop-action.ui.not-crop-block=You need to point to a CropBlock!
+cropchance.cmd.crop-action.ui.no-crop=No crop on it!

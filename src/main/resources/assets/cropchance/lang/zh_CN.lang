@@ -1,0 +1,84 @@
+cropchance.ui.page.name=页面: 
+cropchance.ui.page.prev=前一页
+cropchance.ui.page.next=后一页
+cropchance.ui.page.num=页数应当为正整数
+
+cropchance.ui.msgEx.title.invalid-arg=无效的参数
+cropchance.ui.msgEx.invalid-arg.val=无效的参数值
+cropchance.ui.msgEx.title.error=错误
+cropchance.ui.msgEx.attr.exception=异常类
+cropchance.ui.msgEx.attr.message=信息
+cropchance.ui.msgEx.attr.stacktrace=堆栈
+
+cropchance.ui.attr.name=名称
+cropchance.ui.attr.desc=说明
+cropchance.ui.attr.id=Id
+cropchance.ui.attr.tier=等级
+cropchance.ui.attr.chance=几率
+cropchance.ui.attr.tried=尝试
+cropchance.ui.attr.weed=杂草
+cropchance.ui.attr.cross=杂交
+cropchance.ui.attr.discover-by=发现者
+cropchance.ui.attr.owner=所有者
+cropchance.ui.attr.attr=属性
+cropchance.ui.attr.growth=生长
+cropchance.ui.attr.resistance=抗性
+cropchance.ui.attr.gain=产量
+cropchance.ui.attr.surround=附近作物
+cropchance.ui.attr.type=类型
+cropchance.ui.attr.humidity=湿度
+cropchance.ui.attr.nutrient=肥料
+cropchance.ui.attr.air=空气质量
+cropchance.ui.attr.water=水分
+cropchance.ui.attr.ex=除草剂
+cropchance.ui.attr.sum=总和
+cropchance.ui.attr.size=生长阶段
+cropchance.ui.attr.have=环境
+cropchance.ui.attr.need=需求
+cropchance.ui.attr.growth-rate=生长率
+cropchance.ui.attr.scan=扫描等级
+cropchance.ui.attr.can-cross=能否杂交
+cropchance.ui.attr.growth-points=生长点数
+cropchance.ui.attr.duration-stage=生长时间(阶段)
+cropchance.ui.attr.duration-full=生长时间(全阶段)
+
+cropchance.ui.attr.in-tick=Tick
+cropchance.ui.attr.in-second=秒
+cropchance.ui.attr.in-minute=分钟
+
+
+cropchance.cmd.chance.ui.begin=作物杂交试验开始...
+cropchance.cmd.chance.ui.end=作物杂交试验结束!
+cropchance.cmd.chance.ui.title=杂交试验结果
+cropchance.cmd.chance.ui.not-hybrid-frame=不是杂交架!
+
+cropchance.cmd.cross.ui.begin=杂交仿真试验开始...
+cropchance.cmd.cross.ui.end=杂交仿真试验结束!
+cropchance.cmd.cross.ui.title=仿真试验结果
+
+cropchance.cmd.cropcard.title=作物信息
+
+cropchance.cmd.info.biome.title=群系信息
+cropchance.cmd.info.biomes.title=群系信息
+cropchance.cmd.info.types.title=群系类型信息
+cropchance.cmd.info.tickrate.title=作物更新刻信息
+
+cropchance.cmd.set.growth=作物：%s 的 生长 设置为 %d
+cropchance.cmd.set.gain=作物：%s 的 产量 设置为 %d
+cropchance.cmd.set.resistance=作物：%s 的 抗性 设置为 %d
+cropchance.cmd.set.nutrient=作物：%s 的 肥料 设置为 %d
+cropchance.cmd.set.water=作物：%s 的 水分 设置为 %d
+cropchance.cmd.set.ex=作物：%s 的 除草剂 设置为 %d
+cropchance.cmd.set.size=作物：%s 的 生长阶段 设置为 %d (%d)
+cropchance.cmd.set.scan=作物：%s 的 扫描等级 设置为 %d
+
+cropchance.cmd.show.title=作物信息
+cropchance.cmd.show.storage=内部存储
+cropchance.cmd.show.stat=属性
+cropchance.cmd.show.env=环境
+cropchance.cmd.show.requirements=需求
+
+cropchance.cmd.tick=在指向的作物上 Tick 了 %d 次
+
+cropchance.cmd.crop-action.ui.not-crop-block=你需要指向一个作物架
+cropchance.cmd.crop-action.ui.no-crop=作物架上没有作物

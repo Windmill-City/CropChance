@@ -36,28 +36,28 @@ public class InfoCommand extends BasicCommand {
             BiomeGenBase biome = sender.getEntityWorld()
                 .getBiomeGenForCoords(coord.posX, coord.posZ);
 
-            c.addTitle("Biome Info");
+            c.addTitle("cropchance.cmd.info.biome.title");
             showBiomeInfo(c, biome);
             c.addSeparator();
             c.build();
         }
 
         public static void showBiomeInfo(ChatBuilder c, BiomeGenBase biome) {
-            c.addAttr("Name", biome.biomeName)
+            c.addAttr("cropchance.ui.attr.name", biome.biomeName)
                 .commit();
-            c.addAttr("Id", biome.biomeID)
+            c.addAttr("cropchance.ui.attr.id", biome.biomeID)
                 .commit();
             c.addAttr(
-                "Type",
-                Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
-                    .map(Enum::name)
-                    .collect(Collectors.joining(", ")))
+                    "cropchance.ui.attr.type",
+                    Arrays.stream(BiomeDictionary.getTypesForBiome(biome))
+                        .map(Enum::name)
+                        .collect(Collectors.joining(", ")))
                 .commit();
             int humidity = Crops.instance.getHumidityBiomeBonus(biome);
             int nutrient = Crops.instance.getNutrientBiomeBonus(biome);
-            c.addAttr("Humidity", humidity);
-            c.addAttr("Nutrient", nutrient);
-            c.addAttr("Sum", humidity + nutrient)
+            c.addAttr("cropchance.ui.attr.humidity", humidity);
+            c.addAttr("cropchance.ui.attr.nutrient", nutrient);
+            c.addAttr("cropchance.ui.attr.sum", humidity + nutrient)
                 .commit();
         }
 
@@ -91,7 +91,7 @@ public class InfoCommand extends BasicCommand {
 
             ChatBuilder c = new ChatBuilder(sender);
             c.addPage(
-                "Biomes Info",
+                "cropchance.cmd.info.biomes.title",
                 getCommandPrefix(),
                 getPage(args),
                 biomes,
@@ -115,7 +115,7 @@ public class InfoCommand extends BasicCommand {
         public void processCommand(ICommandSender sender, List<String> args) {
             ChatBuilder c = new ChatBuilder(sender);
             c.addPage(
-                "Biome Types",
+                "cropchance.cmd.info.types.title",
                 getCommandPrefix(),
                 getPage(args),
                 getBiomeTypeKeys().stream()
@@ -130,13 +130,13 @@ public class InfoCommand extends BasicCommand {
                     })
                     .collect(Collectors.toList()),
                 key -> {
-                    c.addAttr("Name", key.name())
+                    c.addAttr("cropchance.ui.attr.name", key.name())
                         .commit();
                     int humidity = getHumidity(key);
                     int nutrient = getNutrient(key);
-                    c.addAttr("Humidity", humidity);
-                    c.addAttr("Nutrient", nutrient);
-                    c.addAttr("Sum", humidity + nutrient)
+                    c.addAttr("cropchance.ui.attr.humidity", humidity);
+                    c.addAttr("cropchance.ui.attr.nutrient", nutrient);
+                    c.addAttr("cropchance.ui.attr.sum", humidity + nutrient)
                         .commit();
                 });
             c.build();
@@ -176,9 +176,9 @@ public class InfoCommand extends BasicCommand {
         @Override
         public void processCommand(ICommandSender sender, List<String> args) {
             ChatBuilder c = new ChatBuilder(sender);
-            c.addTitle("Crop TickRate Info");
-            c.addAttr("TickRate", TileEntityCrop.tickRate);
-            c.addAttr("in second", TileEntityCrop.tickRate / 20f)
+            c.addTitle("cropchance.cmd.info.tickrate.title");
+            c.addAttr("cropchance.ui.attr.in-tick", TileEntityCrop.tickRate);
+            c.addAttr("cropchance.ui.attr.in-second", TileEntityCrop.tickRate / 20f)
                 .commit();
             c.addSeparator();
             c.build();

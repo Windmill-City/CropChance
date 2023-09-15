@@ -38,7 +38,7 @@ public class ChanceCommand extends CropAction {
         try {
             int tryCross = getIntegerDefault(args, 1000);
 
-            msg(sender, "Chance test begin...");
+            msg(sender, "cropchance.cmd.chance.ui.begin");
 
             World world = crop.getWorld();
             TileEntityCrop left = getTile(world, crop.xCoord + 1, crop.yCoord, crop.zCoord);
@@ -74,10 +74,10 @@ public class ChanceCommand extends CropAction {
             restoreParent(front);
             restoreParent(back);
 
-            msg(sender, "Chance test end!");
+            msg(sender, "cropchance.cmd.chance.ui.end");
 
             ChatBuilder c = new ChatBuilder(sender);
-            c.addTitle("Chances");
+            c.addTitle("cropchance.cmd.chance.ui.title");
 
             for (Map.Entry<CropCard, Integer> entry : Result.entrySet()
                 .stream()
@@ -85,26 +85,26 @@ public class ChanceCommand extends CropAction {
                 .collect(Collectors.toList())) {
                 // Crop
                 CropCard card = entry.getKey();
-                c.addAttr("Name", I18n.format(card.displayName()));
-                c.addAttr("Id", card.name());
-                c.addAttr("Tier", card.tier())
+                c.addAttr("cropchance.ui.attr.name", I18n.format(card.displayName()));
+                c.addAttr("cropchance.ui.attr.id", card.name());
+                c.addAttr("cropchance.ui.attr.tier", card.tier())
                     .commit();
 
                 // Chance
                 Integer appear = entry.getValue();
-                c.addAttr("Chance", appear)
+                c.addAttr("cropchance.ui.attr.chance", appear)
                     .text(" (%.2f %%)", 100f * appear / Cross)
                     .commit();
                 c.addSeparator();
             }
 
             // General
-            c.addAttr("Tried", tryCross)
+            c.addAttr("cropchance.ui.attr.tried", tryCross)
                 .commit();
-            c.addAttr("Weed", Weed)
+            c.addAttr("cropchance.ui.attr.weed", Weed)
                 .text(" (%.2f %%)", 100f * Weed / tryCross)
                 .commit();
-            c.addAttr("Cross", Cross)
+            c.addAttr("cropchance.ui.attr.cross", Cross)
                 .text(" (%.2f %%)", 100f * Cross / tryCross)
                 .commit();
             c.addSeparator();
@@ -121,7 +121,7 @@ public class ChanceCommand extends CropAction {
     @Override
     public boolean checkCrop(ICommandSender sender, TileEntityCrop crop) {
         if (!crop.upgraded) {
-            msg(sender, "Not a hybrid frame!");
+            msg(sender, "cropchance.cmd.chance.ui.not-hybrid-frame");
             return false;
         }
         return true;

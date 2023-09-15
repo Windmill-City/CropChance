@@ -5,13 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.*;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-@SuppressWarnings({ "unused", "UnusedReturnValue" })
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ChatBuilder {
 
     public final int LineMax = 20;
@@ -70,7 +71,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder text(ChatFormatting f, String text, Object... args) {
-        text = String.format(text, args);
+        text = I18n.format(text, args);
         Line.addLast(new ChatComponentText(f + text));
         CharNum += text.length();
         return this;
@@ -81,7 +82,7 @@ public class ChatBuilder {
     }
 
     public ChatBuilder textFront(ChatFormatting f, String text, Object... args) {
-        text = String.format(text, args);
+        text = I18n.format(text, args);
         Line.addFirst(new ChatComponentText(f + String.format(text, args)));
         CharNum += text.length();
         return this;
@@ -115,7 +116,8 @@ public class ChatBuilder {
     }
 
     public void addPageHead(String title, String cmd, int curPage, int maxPage) {
-        text(ChatFormatting.AQUA, title + " ");
+        text(ChatFormatting.AQUA, title);
+        text(ChatFormatting.AQUA, " ");
         addPageNav(cmd, curPage, maxPage);
         addPadding();
         commit(true);
@@ -130,10 +132,11 @@ public class ChatBuilder {
     public void addPageNav(String cmd, int cur, int max) {
         cmd = cmd + " %d";
 
-        text(ChatFormatting.WHITE, "Page: %d/%d (", cur, max);
-        addCommand("Prev", EnumChatFormatting.GREEN, cmd, cur - 1);
+        text(ChatFormatting.WHITE, "cropchance.ui.page.name");
+        text(ChatFormatting.WHITE, "%d/%d (", cur, max);
+        addCommand("cropchance.ui.page.prev", EnumChatFormatting.GREEN, cmd, cur - 1);
         text(ChatFormatting.WHITE, "/");
-        addCommand("Next", EnumChatFormatting.GREEN, cmd, cur + 1);
+        addCommand("cropchance.ui.page.next", EnumChatFormatting.GREEN, cmd, cur + 1);
         text(ChatFormatting.WHITE, ")");
     }
 
@@ -153,14 +156,15 @@ public class ChatBuilder {
 
     public void addPadding() {
         int padding = Padding_X - CharNum;
+        if (padding < 0) return;
         textFront(ChatFormatting.GOLD, repeat("-", padding / 2) + " ");
-        padding = Padding_X - CharNum;
-        text(ChatFormatting.GOLD, " " + repeat("-", padding));
+        text(ChatFormatting.GOLD, " " + repeat("-", padding / 2));
     }
 
     public ChatBuilder addAttr(String name, String value, Object... args) {
         text(ChatFormatting.RESET, " ");
-        text(ChatFormatting.DARK_AQUA, name + ": ");
+        text(ChatFormatting.DARK_AQUA, name);
+        text(ChatFormatting.DARK_AQUA, ": ");
         text(ChatFormatting.YELLOW, value, args);
         return this;
     }
@@ -174,18 +178,19 @@ public class ChatBuilder {
     }
 
     public ChatBuilder addAttr(String name, boolean val) {
-        return addAttr(name, val ? "true" : "false");
+        return addAttr(name, val ? (ChatFormatting.GREEN + "true") : (ChatFormatting.RED + "false"));
     }
 
     public ChatBuilder addAttrRange(String name, long min, long max) {
-        return addAttr(name, "[%d, %d] (%d)", min, max, (min + max) / 2);
+        return addAttr(name, "[%d, %d]" + ChatFormatting.WHITE + " (%d)", min, max, (min + max) / 2);
     }
 
     public ChatBuilder addAttrRange(String name, double min, double max) {
-        return addAttr(name, "[%.2f, %.2f] (%.2f)", min, max, (min + max) / 2);
+        return addAttr(name, "[%.2f, %.2f]" + ChatFormatting.WHITE + " (%.2f)", min, max, (min + max) / 2);
     }
 
     public void addCommand(String name, EnumChatFormatting color, String cmd, Object... args) {
+        name = I18n.format(name);
         IChatComponent c = new ChatComponentText(name);
         c.setChatStyle(
             new ChatStyle().setColor(color)

@@ -44,7 +44,7 @@ public class CrossCommand extends BasicCommand {
                 if (args.size() >= 4 && (args.get(3)
                     .equals("quiet")
                     || args.get(3)
-                        .equals("q")))
+                    .equals("q")))
                     trier.Quiet = true;
                 if (args.size() >= 4 && args.get(3)
                     .equals("nodummy")) trier.Dummy = false;
@@ -105,7 +105,7 @@ public class CrossCommand extends BasicCommand {
                 try {
                     Running = true;
                     CropChance.LOG.info("Cross simulate start with param: " + this);
-                    msg(sender, "Cross simulate start...");
+                    msg(sender, "cropchance.cmd.cross.ui.begin");
 
                     World world = Dummy ? new DummyWorld() : sender.getEntityWorld();
                     ChunkCoordinates at = sender.getPlayerCoordinates();
@@ -129,6 +129,7 @@ public class CrossCommand extends BasicCommand {
 
                     Running = false;
                     CropChance.LOG.info("Cross simulate end!");
+                    msg(sender, "cropchance.cmd.cross.ui.end");
 
                     formatResult(sender);
                 } catch (Exception e) {
@@ -145,23 +146,23 @@ public class CrossCommand extends BasicCommand {
         public void formatResult(ICommandSender sender) {
             ChatBuilder c = new ChatBuilder(sender);
 
-            c.addTitle("Result");
-            c.addAttr("Growth", Growth)
+            c.addTitle("cropchance.cmd.cross.ui.title");
+            c.addAttr("cropchance.ui.attr.growth", Growth)
                 .commit();
-            c.addAttr("Surround", Surround)
+            c.addAttr("cropchance.ui.attr.surround", Surround)
                 .commit();
             c.addSeparator();
 
-            c.addAttr("Try", Tried)
+            c.addAttr("cropchance.ui.attr.tried", Tried)
                 .commit();
 
-            c.addAttr("Weed", Weeded);
-            c.addAttr("Percent", 100f * Weeded / TryCross)
+            c.addAttr("cropchance.ui.attr.weed", Weeded);
+            c.addAttr("cropchance.ui.attr.chance", 100f * Weeded / TryCross)
                 .text("%%")
                 .commit();
 
-            c.addAttr("Cross", Crossed);
-            c.addAttr("Percent", 100f * Crossed / TryCross)
+            c.addAttr("cropchance.ui.attr.cross", Crossed);
+            c.addAttr("cropchance.ui.attr.chance", 100f * Crossed / TryCross)
                 .text("%%")
                 .commit();
             c.addSeparator();

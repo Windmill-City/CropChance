@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -133,7 +134,7 @@ public abstract class BasicCommand extends CommandBase {
         try {
             page = getIntegerDefault(args, 1);
         } catch (NumberFormatException ignored) {
-            throw new InvalidArgumentException(this, "page", args.get(0), "Page number, should be Integer");
+            throw new InvalidArgumentException(this, "page", args.get(0), "cropchance.ui.page.num");
         }
         return page;
     }
@@ -148,19 +149,20 @@ public abstract class BasicCommand extends CommandBase {
     }
 
     public static void msg(ICommandSender sender, String msg, Object... args) {
-        sender.addChatMessage(new ChatComponentText(String.format(msg, args)));
+        sender.addChatMessage(new ChatComponentText(I18n.format(msg, args)));
     }
 
     public static void msgEx(ICommandSender sender, Exception e) {
         ChatBuilder c = new ChatBuilder(sender);
         if (e instanceof InvalidArgumentException) {
-            c.addTitle("Invalid Argument");
-            c.addAttr("Name", ((InvalidArgumentException) e).ArgName)
+            c.addTitle("cropchance.ui.msgEx.title.invalid-arg");
+            c.addAttr("cropchance.ui.attr.name", ((InvalidArgumentException) e).ArgName)
                 .commit();
-            c.addAttr("Invalid Value", ((InvalidArgumentException) e).InvalidVal)
+            c.addAttr("cropchance.ui.msgEx.invalid-arg.val", ((InvalidArgumentException) e).InvalidVal)
                 .commit();
-            if (((InvalidArgumentException) e).Desc != null) c.addAttr("Desc", ((InvalidArgumentException) e).Desc)
-                .commit();
+            if (((InvalidArgumentException) e).Desc != null)
+                c.addAttr("cropchance.ui.attr.desc", ((InvalidArgumentException) e).Desc)
+                    .commit();
             c.addSeparator();
 
             // Show help
@@ -168,15 +170,15 @@ public abstract class BasicCommand extends CommandBase {
                 .commit();
             c.build();
         } else {
-            c.addTitle("Error");
+            c.addTitle("cropchance.ui.msgEx.title.error");
             c.addAttr(
-                "Exception",
-                e.getClass()
-                    .toString())
+                    "cropchance.ui.msgEx.attr.exception",
+                    e.getClass()
+                        .toString())
                 .commit();
-            if (e.getMessage() != null) c.addAttr("Message", e.getMessage())
+            if (e.getMessage() != null) c.addAttr("cropchance.ui.msgEx.attr.message", e.getMessage())
                 .commit();
-            c.addAttr("Stacktrace", "")
+            c.addAttr("cropchance.ui.msgEx.attr.stacktrace", "")
                 .commit();
             Arrays.stream(e.getStackTrace())
                 .limit(6)

@@ -34,7 +34,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Growth set to: %d",
+                "cropchance.cmd.set.growth",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -54,7 +54,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Gain set to: %d",
+                "cropchance.cmd.set.gain",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -74,7 +74,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Resistance set to: %d",
+                "cropchance.cmd.set.resistance",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -94,7 +94,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Nutrient set to: %d",
+                "cropchance.cmd.set.nutrient",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -114,7 +114,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Water set to: %d",
+                "cropchance.cmd.set.water",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -134,7 +134,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s WeedEx set to: %d",
+                "cropchance.cmd.set.ex",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -159,7 +159,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s Size set to: %d (%d)",
+                "cropchance.cmd.set.size",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),
@@ -181,7 +181,7 @@ public class SetCommand extends BasicCommand {
             crop.updateState();
             msg(
                 sender,
-                "Crop: %s ScanLevel set to: %d",
+                "cropchance.cmd.set.scan",
                 I18n.format(
                     crop.getCrop()
                         .displayName()),

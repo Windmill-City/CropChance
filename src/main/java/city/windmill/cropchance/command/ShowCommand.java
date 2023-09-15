@@ -18,48 +18,47 @@ public class ShowCommand extends CropAction {
     public void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args) {
         ChatBuilder c = new ChatBuilder(sender);
 
-        c.addTitle("Crop Info");
+        c.addTitle("cropchance.cmd.show.title");
         CropCardCommand.formatCropCard(c, crop.getCrop());
-        c.addAttr("Scan Level", crop.getScanLevel());
+        c.addAttr("cropchance.ui.attr.scan", crop.getScanLevel());
         c.addAttr(
-            "CanCross",
-            crop.getCrop()
-                .canCross(crop))
+                "cropchance.ui.attr.can-cross",
+                crop.getCrop()
+                    .canCross(crop))
             .commit();
 
-        c.addTitle("Storage");
-        c.addAttr("Water", crop.waterStorage);
-        c.addAttr("Nutrient", crop.getNutrientStorage());
-        c.addAttr("WeedEx", crop.getWeedExStorage())
+        c.addTitle("cropchance.cmd.show.storage");
+        c.addAttr("cropchance.ui.attr.water", crop.waterStorage);
+        c.addAttr("cropchance.ui.attr.nutrient", crop.getNutrientStorage());
+        c.addAttr("cropchance.ui.attr.ex", crop.getWeedExStorage())
             .commit();
 
-        c.addTitle("Stat");
-        c.addAttr("Growth", crop.getGrowth());
-        c.addAttr("Gain", crop.getGain());
-        c.addAttr("Resistance", crop.getResistance())
+        c.addTitle("cropchance.cmd.show.stat");
+        c.addAttr("cropchance.ui.attr.growth", crop.getGrowth());
+        c.addAttr("cropchance.ui.attr.gain", crop.getGain());
+        c.addAttr("cropchance.ui.attr.resistance", crop.getResistance())
             .commit();
-        c.addAttr("Growth Points", crop.growthPoints);
-        c.addAttr("Size", crop.getSize())
+        c.addAttr("cropchance.ui.attr.growth-points", crop.growthPoints);
+        c.addAttr("cropchance.ui.attr.size", crop.getSize())
             .text(
-                ChatFormatting.YELLOW,
+                ChatFormatting.WHITE,
                 " (%d)",
                 crop.getCrop()
                     .maxSize())
             .commit();
 
-        c.addTitle("Env");
-        c.addAttr("Humidity", crop.getHumidity());
-        c.addAttr("Nutrient", crop.getNutrients());
-        c.addAttr("AirQuality", crop.getAirQuality())
+        c.addTitle("cropchance.cmd.show.env");
+        c.addAttr("cropchance.ui.attr.humidity", crop.getHumidity());
+        c.addAttr("cropchance.ui.attr.nutrient", crop.getNutrients());
+        c.addAttr("cropchance.ui.attr.air", crop.getAirQuality())
             .commit();
 
-        c.addTitle("Requirements");
-        c.addAttr("Have", getHave(crop));
-        c.addAttr("Need", getNeed(crop));
+        c.addTitle("cropchance.cmd.show.requirements");
+        c.addAttr("cropchance.ui.attr.have", getHave(crop));
+        c.addAttr("cropchance.ui.attr.need", getNeed(crop));
         int growthRateMin = getGrowthRateMin(crop);
         int growthRateMax = getGrowthRateMax(crop);
-        int growthRateAvg = (growthRateMin + growthRateMax) / 2;
-        c.addAttr("GrowthRate", "[%d, %d] (%d)", growthRateMin, growthRateMax, growthRateAvg)
+        c.addAttrRange("cropchance.ui.attr.growth-rate", growthRateMin, growthRateMax)
             .commit();
 
         int duration = crop.getCrop()
@@ -69,10 +68,10 @@ public class ShowCommand extends CropAction {
         float minMs = minTick * TileEntityCrop.tickRate / 20f / 60f;
         float maxMs = maxTick * TileEntityCrop.tickRate / 20f / 60f;
 
-        c.addAttr("Duration (Stage)", duration)
+        c.addAttr("cropchance.ui.attr.duration-stage", duration)
             .commit();
-        c.addAttrRange("Ticks", minTick, maxTick);
-        c.addAttrRange("Minutes", minMs, maxMs)
+        c.addAttrRange("cropchance.ui.attr.in-tick", minTick, maxTick);
+        c.addAttrRange("cropchance.ui.attr.in-minute", minMs, maxMs)
             .commit();
 
         int stage = crop.getCrop()
@@ -82,10 +81,10 @@ public class ShowCommand extends CropAction {
         int maxTickFull = maxTick * stage;
         float minMsFull = minMs * stage;
         float maxMsFull = maxMs * stage;
-        c.addAttr("Duration (Full)", durationFull)
+        c.addAttr("cropchance.ui.attr.duration-full", durationFull)
             .commit();
-        c.addAttrRange("Ticks", minTickFull, maxTickFull);
-        c.addAttrRange("Minutes", minMsFull, maxMsFull)
+        c.addAttrRange("cropchance.ui.attr.in-tick", minTickFull, maxTickFull);
+        c.addAttrRange("cropchance.ui.attr.in-minute", minMsFull, maxMsFull)
             .commit();
 
         c.addSeparator();

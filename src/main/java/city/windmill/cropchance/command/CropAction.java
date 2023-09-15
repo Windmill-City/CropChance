@@ -29,14 +29,14 @@ public abstract class CropAction extends BasicCommand {
                 return;
             }
         }
-        msg(sender, "You need to point to a CropBlock!");
+        msg(sender, "cropchance.cmd.crop-action.ui.not-crop-block");
     }
 
     public abstract void doAction(TileEntityCrop crop, ICommandSender sender, List<String> args);
 
     public boolean checkCrop(ICommandSender sender, TileEntityCrop crop) {
         if (crop.getCrop() == null) {
-            msg(sender, "No crop on it!");
+            msg(sender, "cropchance.cmd.crop-action.ui.no-crop");
             return false;
         }
         return true;

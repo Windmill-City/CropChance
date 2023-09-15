@@ -32,7 +32,7 @@ public class TickCommand extends CropAction {
         int tick_count = getTick(args);
         for (int i = 0; i < tick_count; i++) crop.tick();
 
-        msg(sender, "Ticked on the target crop for %d times", tick_count);
+        msg(sender, "cropchance.cmd.tick", tick_count);
     }
 
     @Override
