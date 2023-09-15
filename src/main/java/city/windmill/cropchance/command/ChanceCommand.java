@@ -20,10 +20,6 @@ import ic2.core.crop.TileEntityCrop;
 
 public class ChanceCommand extends CropAction {
 
-    public final Map<CropCard, Integer> Result = new HashMap<>();
-    public int Cross = 0;
-    public int Weed = 0;
-
     public ChanceCommand() {
         super("chance");
     }
@@ -51,6 +47,10 @@ public class ChanceCommand extends CropAction {
             replaceParent(front);
             replaceParent(back);
 
+            int weed = 0;
+            int cross = 0;
+            final Map<CropCard, Integer> result = new HashMap<>();
+
             for (int i = 0; i < tryCross; i++) {
                 resetForCross(crop);
                 applyParent(left);
@@ -60,11 +60,11 @@ public class ChanceCommand extends CropAction {
 
                 crop.tick();
 
-                if (isWeed(crop)) Weed++;
+                if (isWeed(crop)) weed++;
                 if (isCross(crop)) {
-                    int count = Result.getOrDefault(crop.getCrop(), 0);
-                    Result.put(crop.getCrop(), ++count);
-                    Cross++;
+                    int count = result.getOrDefault(crop.getCrop(), 0);
+                    result.put(crop.getCrop(), ++count);
+                    cross++;
                 }
             }
 
@@ -79,7 +79,7 @@ public class ChanceCommand extends CropAction {
             ChatBuilder c = new ChatBuilder(sender);
             c.addTitle("cropchance.cmd.chance.ui.title");
 
-            for (Map.Entry<CropCard, Integer> entry : Result.entrySet()
+            for (Map.Entry<CropCard, Integer> entry : result.entrySet()
                 .stream()
                 .sorted(Comparator.comparingInt(Map.Entry::getValue))
                 .collect(Collectors.toList())) {
@@ -93,7 +93,7 @@ public class ChanceCommand extends CropAction {
                 // Chance
                 Integer appear = entry.getValue();
                 c.addAttr("cropchance.ui.attr.chance", appear)
-                    .text(" (%.2f %%)", 100f * appear / Cross)
+                    .text(" (%.2f %%)", 100f * appear / cross)
                     .commit();
                 c.addSeparator();
             }
@@ -101,11 +101,11 @@ public class ChanceCommand extends CropAction {
             // General
             c.addAttr("cropchance.ui.attr.tried", tryCross)
                 .commit();
-            c.addAttr("cropchance.ui.attr.weed", Weed)
-                .text(" (%.2f %%)", 100f * Weed / tryCross)
+            c.addAttr("cropchance.ui.attr.weed", weed)
+                .text(" (%.2f %%)", 100f * weed / tryCross)
                 .commit();
-            c.addAttr("cropchance.ui.attr.cross", Cross)
-                .text(" (%.2f %%)", 100f * Cross / tryCross)
+            c.addAttr("cropchance.ui.attr.cross", cross)
+                .text(" (%.2f %%)", 100f * cross / tryCross)
                 .commit();
             c.addSeparator();
             c.build();
